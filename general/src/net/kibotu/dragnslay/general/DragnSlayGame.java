@@ -1,6 +1,7 @@
 package net.kibotu.dragnslay.general;
 
 import com.badlogic.gdx.Game;
+import net.kibotu.dragnslay.general.screens.SplashScreen;
 import net.kibotu.logger.Logger;
 
 /**
@@ -19,6 +20,8 @@ public class DragnSlayGame extends Game {
     @Override
     public void create () {
         Logger.v( TAG, "create" );
+
+        setScreen( new SplashScreen( this ) );
     }
 
     @Override

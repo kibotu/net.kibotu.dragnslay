@@ -1,7 +1,9 @@
 package net.kibotu.dragnslay.general.screens;
 
 import com.badlogic.gdx.Screen;
+import net.kibotu.dragnslay.general.DragnSlayGame;
 import net.kibotu.logger.Logger;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * TODO insert description
@@ -11,12 +13,16 @@ import net.kibotu.logger.Logger;
 public class GameScreen implements Screen {
 
     private static final String TAG = GameScreen.class.getSimpleName();
+    private DragnSlayGame gameContext;
 
-    public GameScreen () {
+    public GameScreen ( @NotNull final DragnSlayGame gameContext ) {
+        this.gameContext = gameContext;
+        Logger.v( TAG, "construct" );
     }
 
     @Override
     public void render ( final float delta ) {
+        Logger.v( TAG, "construct" );
     }
 
     @Override
