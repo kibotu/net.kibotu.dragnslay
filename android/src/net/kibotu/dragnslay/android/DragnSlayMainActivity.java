@@ -3,6 +3,7 @@ package net.kibotu.dragnslay.android;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.SurfaceView;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import net.kibotu.dragnslay.general.Constants;
@@ -16,16 +17,11 @@ public class DragnSlayMainActivity extends AndroidApplication {
 
     public DragnSlayMainActivity () {
         super();
-        Logger.v( TAG, "construct" );
     }
 
     @Override
     public void onCreate ( final Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
-
-        // init logger
-        Logger.init( new GdxLogger(), Constants.APP_TAG, Constants.LOGGING_LEVEL );
-        Logger.v( TAG, "onCreate" );
 
         // app cfg
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
@@ -37,6 +33,10 @@ public class DragnSlayMainActivity extends AndroidApplication {
         cfg.b = 8;
         cfg.a = 8;
         initialize( new DragnSlayGame(), cfg );
+
+        // init logger
+        Logger.init( new GdxLogger(), Constants.APP_TAG, Constants.LOGGING_LEVEL );
+        Logger.v( TAG, "onCreate" );
 
         if ( graphics.getView() instanceof SurfaceView ) {
             final SurfaceView glView = ( SurfaceView ) graphics.getView();

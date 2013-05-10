@@ -14,7 +14,6 @@ public class DragnSlayGame extends Game {
 
     public DragnSlayGame () {
         super();
-        Logger.v( TAG, "construct" );
     }
 
     @Override

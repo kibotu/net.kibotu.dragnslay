@@ -12,6 +12,10 @@ import static net.kibotu.logger.Logger.Level.*;
  */
 public class GdxLogger implements ILogger {
 
+    public GdxLogger () {
+//        Gdx.app.setLogLevel( Gdx.app.LOG_DEBUG );
+    }
+
     @Override
     public void debug ( final String tag, final String message ) {
         Gdx.app.log( tag + DEBUG.TAG, message );
