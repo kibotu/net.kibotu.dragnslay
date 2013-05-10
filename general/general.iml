@@ -7,7 +7,19 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="gdx" level="project" />
+    <orderEntry type="library" exported="" name="gdx" level="project" />
+    <orderEntry type="library" exported="" name="FlurryAgent" level="project" />
+    <orderEntry type="library" exported="" name="tween-engine-api" level="project" />
+    <orderEntry type="library" exported="" name="UHL" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/annotations.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
