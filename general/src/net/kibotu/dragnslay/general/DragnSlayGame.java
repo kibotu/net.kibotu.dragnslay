@@ -21,7 +21,6 @@ public class DragnSlayGame extends Game {
     @Override
     public void create () {
         Logger.v( TAG, "create" );
-
         setScreen( new SplashScreen( this ) );
     }
 

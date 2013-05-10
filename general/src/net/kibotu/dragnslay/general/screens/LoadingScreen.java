@@ -20,7 +20,7 @@ public class LoadingScreen implements Screen {
         this.gameContext = gameContext;
         Logger.v( TAG, "construct" );
 
-        Assets.create();
+        Assets.loadLoadingScreen();
     }
 
     @Override
@@ -43,14 +43,16 @@ public class LoadingScreen implements Screen {
     public void show () {
         Logger.v( TAG, "show" );
 
-        // TODO load saved stuff
+        // load game assets
+        Assets.create();
     }
 
     @Override
     public void hide () {
         Logger.v( TAG, "hide" );
 
-        // TODO dispose screen related stuff
+        // unload loading screen
+        Assets.unloadLoadingScreen();
     }
 
     @Override
@@ -62,12 +64,16 @@ public class LoadingScreen implements Screen {
     public void resume () {
         Logger.v( TAG, "resume" );
 
-        // TODO re-allocate screen related stuff
+        // load loading screen
+        Assets.loadLoadingScreen();
     }
 
     @Override
     public void dispose () {
         // gets called only manually
         Logger.v( TAG, "dispose" );
+
+        // unload loading screen
+        Assets.unloadLoadingScreen();
     }
 }

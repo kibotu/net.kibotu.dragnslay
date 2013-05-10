@@ -1,5 +1,6 @@
 package net.kibotu.dragnslay.general.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import net.kibotu.dragnslay.general.DragnSlayGame;
 import net.kibotu.logger.Logger;
@@ -20,9 +21,13 @@ public class GameScreen implements Screen {
         Logger.v( TAG, "construct" );
     }
 
+    /**
+     * Main Loop
+     *
+     * @param delta - dt in milliseconds
+     */
     @Override
     public void render ( final float delta ) {
-        Logger.v( TAG, "construct" );
     }
 
     @Override

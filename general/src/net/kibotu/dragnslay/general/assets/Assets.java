@@ -9,28 +9,24 @@ import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import net.kibotu.dragnslay.general.assets.loader.ShaderLoader;
 import net.kibotu.dragnslay.general.assets.loader.StillModelLoader;
+import net.kibotu.logger.Logger;
 
 import java.util.HashMap;
 
 import static net.kibotu.dragnslay.general.Constants.*;
 
-public final class Assets {
+public enum Assets {
 
+    INSTANCE;
+    private static final String TAG = Assets.class.getSimpleName();
     public static AssetManager manager;
     public static HashMap<String, ShaderProgram> activeShader;
     private static Assets instance;
 
-    private Assets () {
+    static {
         activeShader = new HashMap<>( 2 );
         manager = new AssetManager();
         manager.setLoader( StillModel.class, new StillModelLoader( new InternalFileHandleResolver() ) );
-    }
-
-    public synchronized static Assets instance () {
-        if ( instance == null ) {
-            instance = new Assets();
-        }
-        return instance;
     }
 
     public static void loadModels () {
@@ -53,16 +49,17 @@ public final class Assets {
      * Re-Allocates assets.
      */
     public static void create () {
+        Logger.v( TAG, "allocate assets" );
         loadShaderAssets();
         loadModels();
         loadSprites();
-        manager.finishLoading();
     }
 
     /**
      * Clears all assets related buffers.
      */
     public static void clear () {
+        Logger.v( TAG, "dispose assets" );
         unload();
         Assets.manager.clear();
         ShaderProgram.clearAllShaderPrograms( Gdx.app );
@@ -72,5 +69,21 @@ public final class Assets {
     private static void unload () {
         manager.unload( TEXTURE_WHITE );
 //        manager.unload( MODEL_BLA );
+    }
+
+    public static void loadSplashScreen () {
+        Logger.v( TAG, "allocate splash screen assets" );
+    }
+
+    public static void unloadSplashScreen () {
+        Logger.v( TAG, "allocate splash screen assets" );
+    }
+
+    public static void loadLoadingScreen () {
+        Logger.v( TAG, "allocate loading screen assets" );
+    }
+
+    public static void unloadLoadingScreen () {
+        Logger.v( TAG, "allocate loading screen assets" );
     }
 }

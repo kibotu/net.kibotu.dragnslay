@@ -2,6 +2,7 @@ package net.kibotu.dragnslay.general.screens;
 
 import com.badlogic.gdx.Screen;
 import net.kibotu.dragnslay.general.DragnSlayGame;
+import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +22,7 @@ public class SplashScreen implements Screen {
         this.gameContext = gameContext;
         Logger.v( TAG, "construct" );
         startTime = System.currentTimeMillis();
+        Assets.loadSplashScreen();
     }
 
     @Override
@@ -69,5 +71,6 @@ public class SplashScreen implements Screen {
     public void dispose () {
         // gets called only manually
         Logger.v( TAG, "dispose" );
+        Assets.unloadSplashScreen();
     }
 }
