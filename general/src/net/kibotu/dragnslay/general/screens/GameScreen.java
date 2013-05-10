@@ -33,11 +33,15 @@ public class GameScreen implements Screen {
     @Override
     public void show () {
         Logger.v( TAG, "show" );
+
+        // TODO load saved stuff
     }
 
     @Override
     public void hide () {
         Logger.v( TAG, "hide" );
+
+        // TODO dispose screen related stuff
     }
 
     @Override
@@ -48,10 +52,13 @@ public class GameScreen implements Screen {
     @Override
     public void resume () {
         Logger.v( TAG, "resume" );
+
+        // TODO re-allocate screen related stuff
     }
 
     @Override
     public void dispose () {
+        // gets called only manually
         Logger.v( TAG, "dispose" );
     }
 }

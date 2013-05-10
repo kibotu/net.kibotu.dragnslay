@@ -39,6 +39,8 @@ public class DragnSlayGame extends Game {
     public void resume () {
         super.resume();
         Logger.v( TAG, "resume" );
+
+        // TODO re-allocate related stuff
     }
 
     @Override
@@ -51,5 +53,7 @@ public class DragnSlayGame extends Game {
     public void dispose () {
         super.dispose();
         Logger.v( TAG, "dispose" );
+
+        // TODO dispose stuff
     }
 }

@@ -17,6 +17,6 @@ final public class Constants {
     public static final Logger.Level LOGGING_LEVEL = Logger.Level.VERBOSE;
 
 
-    private Constants() {
+    private Constants () {
     }
 }
