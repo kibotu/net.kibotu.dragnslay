@@ -1,6 +1,7 @@
 package net.kibotu.dragnslay.general;
 
 import com.badlogic.gdx.Game;
+import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.screens.SplashScreen;
 import net.kibotu.logger.Logger;
 
@@ -33,6 +34,9 @@ public class DragnSlayGame extends Game {
     public void pause () {
         super.pause();
         Logger.v( TAG, "pause" );
+
+        // dispose stuff
+        Assets.clear();
     }
 
     @Override
@@ -40,7 +44,8 @@ public class DragnSlayGame extends Game {
         super.resume();
         Logger.v( TAG, "resume" );
 
-        // TODO re-allocate related stuff
+        // re-allocate stuff
+        Assets.create();
     }
 
     @Override
@@ -54,6 +59,7 @@ public class DragnSlayGame extends Game {
         super.dispose();
         Logger.v( TAG, "dispose" );
 
-        // TODO dispose stuff
+        // dispose stuff
+        Assets.clear();
     }
 }

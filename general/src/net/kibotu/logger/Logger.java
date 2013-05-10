@@ -178,7 +178,7 @@ final public class Logger {
      * Represents the logging levels.
      */
     public static enum Level {
-        VERBOSE( "V" ), DEBUG( "D" ),INFO( "I" ), WARNING( "W" ), ERROR( "E" ), NO_LOGGING( "" );
+        VERBOSE( "V" ), DEBUG( "D" ), INFO( "I" ), WARNING( "W" ), ERROR( "E" ), NO_LOGGING( "" );
         public final String TAG;
 
         private Level ( @NotNull final String tag ) {

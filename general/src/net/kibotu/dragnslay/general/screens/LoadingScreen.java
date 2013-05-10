@@ -2,6 +2,7 @@ package net.kibotu.dragnslay.general.screens;
 
 import com.badlogic.gdx.Screen;
 import net.kibotu.dragnslay.general.DragnSlayGame;
+import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,10 +19,19 @@ public class LoadingScreen implements Screen {
     public LoadingScreen ( @NotNull final DragnSlayGame gameContext ) {
         this.gameContext = gameContext;
         Logger.v( TAG, "construct" );
+
+        Assets.create();
     }
 
     @Override
     public void render ( final float delta ) {
+
+        Logger.v( TAG, String.format( "Current progress %f", Assets.manager.getProgress() ) );
+        if ( Assets.manager.update() ) {
+            Logger.v( TAG, "Finished loading basic assets." );
+            gameContext.setScreen( new GameScreen( gameContext ) );
+            // this screen is preserved (not disposed) at the moment
+        }
     }
 
     @Override
