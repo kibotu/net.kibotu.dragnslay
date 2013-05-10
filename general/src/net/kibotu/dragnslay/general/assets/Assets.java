@@ -76,7 +76,7 @@ public enum Assets {
     }
 
     public static void unloadSplashScreen () {
-        Logger.v( TAG, "allocate splash screen assets" );
+        Logger.v( TAG, "unload splash screen assets" );
     }
 
     public static void loadLoadingScreen () {
@@ -84,6 +84,6 @@ public enum Assets {
     }
 
     public static void unloadLoadingScreen () {
-        Logger.v( TAG, "allocate loading screen assets" );
+        Logger.v( TAG, "unload loading screen assets" );
     }
 }
