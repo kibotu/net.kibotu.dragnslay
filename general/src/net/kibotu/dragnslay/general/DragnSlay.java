@@ -53,7 +53,7 @@ public class DragnSlay extends Game {
 
         // orthographic camera for sprite batch
         orthographicCamera = new GLESOrthographicCamera();
-        orthographicCamera.setBackground( Color.DARK_GRAY );
+//        orthographicCamera.setBackground( Color.DARK_GRAY );
 
         // camera
         perspectiveCamera = new GLESPerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
@@ -61,7 +61,7 @@ public class DragnSlay extends Game {
         perspectiveCamera.direction.set( 0, 0, - 1 );
         perspectiveCamera.near = 0.5f;
         perspectiveCamera.far = 1000f;
-        perspectiveCamera.setBackground( Color.DARK_GRAY );
+//        perspectiveCamera.setBackground( Color.DARK_GRAY );
     }
 
     @Override

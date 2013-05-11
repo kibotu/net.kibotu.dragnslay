@@ -3,6 +3,7 @@ package net.kibotu.dragnslay.general.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
@@ -20,11 +21,16 @@ public enum Assets {
     private static final String TAG = Assets.class.getSimpleName();
     public static AssetManager manager;
     private static Assets instance;
+    private static TextureLoader.TextureParameter mipMapFilter;
 
     static {
         manager = new AssetManager();
         manager.setLoader( StillModel.class, new StillModelAssetLoader( new InternalFileHandleResolver() ) );
         manager.setLoader( ShaderProgram.class, new ShaderAssetLoader( new InternalFileHandleResolver() ) );
+        mipMapFilter = new TextureLoader.TextureParameter();
+        mipMapFilter.minFilter = Texture.TextureFilter.MipMapLinearNearest;
+        mipMapFilter.minFilter = Texture.TextureFilter.Nearest;
+        mipMapFilter.genMipMaps = true;
     }
 
     public static void loadModels () {
@@ -42,7 +48,7 @@ public enum Assets {
 
     public static void loadSprites () {
         Logger.v( TAG, "load sprites assets" );
-        manager.load( TEXTURE_RAZOR, Texture.class );
+        manager.load( TEXTURE_RAZOR, Texture.class, mipMapFilter );
     }
 
     /**
@@ -55,7 +61,7 @@ public enum Assets {
         loadSprites();
     }
 
-    public static void resume() {
+    public static void resume () {
         loadGameAssets();
         manager.load( SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
         manager.finishLoading();

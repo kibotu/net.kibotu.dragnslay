@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
 
         razorM = Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class );
         Texture razorT = Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class );
-        razorT.setFilter( Texture.TextureFilter.Linear, Texture.TextureFilter.Linear );
+        razorT.setFilter( Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Nearest );
         Material mat = new Material( "razor", new TextureAttribute( razorT, 0, "u_texture01" ) );
         razorM.setMaterial( mat );
     }
@@ -69,7 +69,7 @@ public class GameScreen implements Screen {
         // light
         light.apply( phong );
 
-        phong.setUniformMatrix( MODEL_VIEW, modelviewmatrx);
+        phong.setUniformMatrix( MODEL_VIEW, modelviewmatrx );
         // scene
         razorM.render( phong );
 

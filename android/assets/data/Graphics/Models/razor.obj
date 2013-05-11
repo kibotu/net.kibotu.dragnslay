@@ -1,6 +1,6 @@
 # Blender v2.66 (sub 1) OBJ File: 'spaceship.blend'
 # www.blender.org
-mtllib spaceship2.mtl
+mtllib razor.mtl
 o Cube.001
 v 0.204546 0.141218 -0.204545
 v 0.155516 0.204546 -0.204545

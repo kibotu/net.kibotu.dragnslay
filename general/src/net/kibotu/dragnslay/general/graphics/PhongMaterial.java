@@ -34,9 +34,9 @@ public class PhongMaterial extends Material {
     public static PhongMaterial createDefaultMaterial() {
         if ( defaultMaterial != null ) return defaultMaterial;
         defaultMaterial = new PhongMaterial( "white" );
-        defaultMaterial.Ambient = new Color( 0.4f, 0.4f, 0.4f, 1f );
+        defaultMaterial.Ambient = new Color( 0.1f, 0.1f, 0.1f, 1f );
         defaultMaterial.Diffuse = new Color( 0.5f, 0.5f, 0.5f, 1f );
-        defaultMaterial.Specular = new Color( 0.5f, 0.5f, 0.5f, 1f );
+        defaultMaterial.Specular = new Color( 0.3f, 0.3f, 0.3f, 1f );
         defaultMaterial.Emissive = new Color( 0f, 0f, 0f, 1f );
         defaultMaterial.shininess = 80;
         return defaultMaterial;
