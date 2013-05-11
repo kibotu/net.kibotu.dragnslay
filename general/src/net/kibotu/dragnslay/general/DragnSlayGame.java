@@ -57,8 +57,6 @@ public class DragnSlayGame extends Game {
     public void dispose () {
         super.dispose();
         Logger.v( TAG, "dispose" );
-
-        // dispose stuff
-        Assets.clear();
+        Assets.dispose();
     }
 }

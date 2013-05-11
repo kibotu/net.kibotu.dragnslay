@@ -13,6 +13,7 @@ import net.kibotu.logger.Logger;
 
 import static net.kibotu.dragnslay.general.Constants.*;
 
+// https://github.com/libgdx/libgdx/blob/new3dapi/tests/gdx-tests/src/com/badlogic/gdx/tests/AssetManagerTest.java
 public enum Assets {
 
     INSTANCE;
@@ -27,6 +28,7 @@ public enum Assets {
     }
 
     public static void loadModels () {
+        Logger.v( TAG, "load model assets" );
 //        manager.load( MODEL_BLA, StillModel.class );
     }
 
@@ -34,11 +36,13 @@ public enum Assets {
      * Loads all required shader, compiles them and sets active shader.
      */
     public static void loadShaderAssets () {
+        Logger.v( TAG, "load shader assets" );
         manager.load( SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
         manager.load( SHADER_PHONG, ShaderProgram.class );
     }
 
     public static void loadSprites () {
+        Logger.v( TAG, "load sprites assets" );
         manager.load( TEXTURE_WHITE, Texture.class );
     }
 
@@ -56,10 +60,15 @@ public enum Assets {
      * Clears all assets related buffers.
      */
     public static void clear () {
-        Logger.v( TAG, "dispose assets" );
-        Assets.manager.clear();
-        ShaderProgram.clearAllShaderPrograms( Gdx.app );
-        Texture.clearAllTextures( Gdx.app );
+        Logger.v( TAG, "unload all assets" );
+        unload();
+    }
+
+    private static void unload () {
+        Logger.v( TAG, "unload assets" );
+        manager.unload( TEXTURE_WHITE );
+        manager.unload( SHADER_LIBGDX_DEFAULT );
+        manager.unload( SHADER_PHONG );
     }
 
     public static void loadSplashScreen () {
@@ -76,5 +85,12 @@ public enum Assets {
 
     public static void unloadLoadingScreen () {
         Logger.v( TAG, "unload loading screen assets" );
+    }
+
+    public static void dispose () {
+        Logger.v( TAG, "dispose assets" );
+        Assets.manager.clear();
+        ShaderProgram.clearAllShaderPrograms( Gdx.app );
+        Texture.clearAllTextures( Gdx.app );
     }
 }
