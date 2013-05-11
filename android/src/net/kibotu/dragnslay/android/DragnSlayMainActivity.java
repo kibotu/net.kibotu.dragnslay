@@ -25,8 +25,8 @@ public class DragnSlayMainActivity extends AndroidApplication {
         // app cfg
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = true;
-        cfg.useAccelerometer = false;
-        cfg.useCompass = false;
+        cfg.useAccelerometer = true;
+        cfg.useCompass = true;
         cfg.r = 8;
         cfg.g = 8;
         cfg.b = 8;

@@ -2,6 +2,7 @@ package net.kibotu.dragnslay.general.screens;
 
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,7 +26,8 @@ import static net.kibotu.dragnslay.general.DragnSlay.*;
 public class GameScreen implements Screen {
 
     private static final String TAG = GameScreen.class.getSimpleName();
-    private final World world = new World();
+    MeshNode razor;
+    private World world;
     private DragnSlay gameContext;
     private RootNode scene;
 
@@ -36,10 +38,25 @@ public class GameScreen implements Screen {
         // set default gl state
         initGL();
 
+        Logger.v( TAG, "compassAvail: " + Gdx.input.isPeripheralAvailable( Input.Peripheral.Compass ) );
 
+        world = new World();
 
+//        world.setSystem(hudInputSystem);
+//        world.setSystem(objectInputSystem);
+//        world.setSystem(mapInputSystem);
+//        world.setSystem(new AnimationSystem());
+//        world.setSystem(new BackgroundRenderingSystem(batch, camera));
+//        world.setSystem(new StaticImageRenderingSystem(batch, camera));
+//        world.setSystem(new AnimationRenderingSystem(batch, camera));
+        world.initialize();
+
+        createEntities();
+    }
+
+    private void createEntities () {
         scene = new RootNode();
-        MeshNode razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
+        razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
         scene.addChild( razor );
     }
 
@@ -67,6 +84,11 @@ public class GameScreen implements Screen {
 
         // light
         light.apply( phong );
+
+        world.setDelta( delta );
+        world.process();
+
+        razor.getRotation().setEulerAngles( Gdx.input.getPitch(), Gdx.input.getRoll(), Gdx.input.getAzimuth() );
 
         // scene
         scene.render( phong );

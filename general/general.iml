@@ -20,7 +20,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="artemis" level="project" />
+    <orderEntry type="library" exported="" name="artemis" level="project" />
   </component>
 </module>
 
