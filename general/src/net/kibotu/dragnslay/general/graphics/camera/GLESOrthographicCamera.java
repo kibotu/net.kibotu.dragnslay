@@ -1,4 +1,4 @@
-package net.kibotu.dragnslay.general.graphics;
+package net.kibotu.dragnslay.general.graphics.camera;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

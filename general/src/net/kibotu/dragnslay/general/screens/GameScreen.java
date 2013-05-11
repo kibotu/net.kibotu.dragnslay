@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.materials.Material;
-import com.badlogic.gdx.graphics.g3d.materials.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Matrix4;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
+import net.kibotu.dragnslay.general.graphics.scene.MeshNode;
+import net.kibotu.dragnslay.general.graphics.scene.RootNode;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,11 +23,9 @@ import static net.kibotu.dragnslay.general.DragnSlay.*;
  */
 public class GameScreen implements Screen {
 
-    public static final String MODEL_VIEW = "u_ModelView";
     private static final String TAG = GameScreen.class.getSimpleName();
     private DragnSlay gameContext;
-    private StillModel razorM;
-    private Matrix4 modelviewmatrx = new Matrix4();
+    private RootNode scene;
 
     public GameScreen ( @NotNull final DragnSlay gameContext ) {
         this.gameContext = gameContext;
@@ -37,11 +34,9 @@ public class GameScreen implements Screen {
         // set default gl state
         initGL();
 
-        razorM = Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class );
-        Texture razorT = Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class );
-        razorT.setFilter( Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Nearest );
-        Material mat = new Material( "razor", new TextureAttribute( razorT, 0, "u_texture01" ) );
-        razorM.setMaterial( mat );
+        scene = new RootNode();
+        MeshNode razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
+        scene.addChild( razor );
     }
 
     private void initGL () {
@@ -69,9 +64,8 @@ public class GameScreen implements Screen {
         // light
         light.apply( phong );
 
-        phong.setUniformMatrix( MODEL_VIEW, modelviewmatrx );
         // scene
-        razorM.render( phong );
+        scene.render( phong );
 
         phong.end();
     }

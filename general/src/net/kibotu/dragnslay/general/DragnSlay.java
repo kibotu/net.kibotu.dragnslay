@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import net.kibotu.dragnslay.general.assets.Assets;
-import net.kibotu.dragnslay.general.graphics.GLESOrthographicCamera;
-import net.kibotu.dragnslay.general.graphics.GLESPerspectiveCamera;
 import net.kibotu.dragnslay.general.graphics.Light;
+import net.kibotu.dragnslay.general.graphics.camera.GLESOrthographicCamera;
+import net.kibotu.dragnslay.general.graphics.camera.GLESPerspectiveCamera;
 import net.kibotu.dragnslay.general.screens.LoadingScreen;
 import net.kibotu.dragnslay.general.screens.SplashScreen;
 import net.kibotu.logger.Logger;
@@ -53,15 +53,14 @@ public class DragnSlay extends Game {
 
         // orthographic camera for sprite batch
         orthographicCamera = new GLESOrthographicCamera();
-//        orthographicCamera.setBackground( Color.DARK_GRAY );
 
         // camera
         perspectiveCamera = new GLESPerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-        perspectiveCamera.position.set( 0, 0, 5 );
+        perspectiveCamera.position.set( 0, 0, 10 );
         perspectiveCamera.direction.set( 0, 0, - 1 );
         perspectiveCamera.near = 0.5f;
         perspectiveCamera.far = 1000f;
-//        perspectiveCamera.setBackground( Color.DARK_GRAY );
+        perspectiveCamera.setBackground( Color.DARK_GRAY );
     }
 
     @Override
@@ -93,7 +92,8 @@ public class DragnSlay extends Game {
     public void resize ( int width, int height ) {
         super.resize( width, height );
         Logger.v( TAG, "resize" );
-        DragnSlay.orthographicCamera.setToOrtho( false, width, height );
+        Gdx.graphics.getGL20().glViewport( 0, 0, width, height );
+        orthographicCamera.setToOrtho( false, width, height );
     }
 
     @Override
