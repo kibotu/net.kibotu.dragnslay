@@ -18,9 +18,9 @@ import net.kibotu.logger.Logger;
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */
-public class DragnSlayGame extends Game {
+public class DragnSlay extends Game {
 
-    private static final String TAG = DragnSlayGame.class.getSimpleName();
+    private static final String TAG = DragnSlay.class.getSimpleName();
     /**
      * Spritebatch for displaying sprites.
      * Note: There can be only one sprite batch at a time.
@@ -33,7 +33,7 @@ public class DragnSlayGame extends Game {
     public static Light light;
     public static LoadingScreen loadingScreen;
 
-    public DragnSlayGame () {
+    public DragnSlay () {
         super();
     }
 
@@ -46,7 +46,7 @@ public class DragnSlayGame extends Game {
     }
 
     private void initLights () {
-        light = new Light( Light.LIGHT_DIRECTIONAL_UNIFORM, 0, 0, - 35, 0, 0, 1 );
+        light = new Light( Light.Type.u_DirectionalLight, 0, 0, - 35, 0, 0, 1 );
     }
 
     private void initCameras () {
@@ -93,7 +93,7 @@ public class DragnSlayGame extends Game {
     public void resize ( int width, int height ) {
         super.resize( width, height );
         Logger.v( TAG, "resize" );
-        DragnSlayGame.orthographicCamera.setToOrtho( false, width, height );
+        DragnSlay.orthographicCamera.setToOrtho( false, width, height );
     }
 
     @Override

@@ -48,7 +48,7 @@ public enum Assets {
     /**
      * Re-Allocates assets.
      */
-    public static void create () {
+    public static void loadGameAssets () {
         Logger.v( TAG, "allocate assets" );
         loadShaderAssets();
         loadModels();
@@ -56,7 +56,7 @@ public enum Assets {
     }
 
     public static void resume() {
-        create();
+        loadGameAssets();
         manager.load( SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
         manager.finishLoading();
     }

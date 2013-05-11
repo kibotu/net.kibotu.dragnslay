@@ -3,11 +3,10 @@ package net.kibotu.dragnslay.android;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.SurfaceView;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import net.kibotu.dragnslay.general.Constants;
-import net.kibotu.dragnslay.general.DragnSlayGame;
+import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.logger.Logger;
 import net.kibotu.logger.android.GdxLogger;
 
@@ -32,7 +31,7 @@ public class DragnSlayMainActivity extends AndroidApplication {
         cfg.g = 8;
         cfg.b = 8;
         cfg.a = 8;
-        initialize( new DragnSlayGame(), cfg );
+        initialize( new DragnSlay(), cfg );
 
         // init logger
         Logger.init( new GdxLogger(), Constants.APP_TAG, Constants.LOGGING_LEVEL );

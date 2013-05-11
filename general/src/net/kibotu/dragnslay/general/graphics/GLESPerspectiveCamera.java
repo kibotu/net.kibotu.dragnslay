@@ -1,5 +1,6 @@
 package net.kibotu.dragnslay.general.graphics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -31,9 +32,9 @@ public class GLESPerspectiveCamera extends PerspectiveCamera {
 //        program.setUniformMatrix("u_WorldView", view);
     }
 
-    public void clearScreen ( @NotNull GL20 gl20 ) {
-        gl20.glClearColor( background.r, background.g, background.b, background.a );
-        gl20.glClear( GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_COLOR_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT );
+    public void clearScreen () {
+        Gdx.graphics.getGL20().glClearColor( background.r, background.g, background.b, background.a );
+        Gdx.graphics.getGL20().glClear( GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_COLOR_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT );
     }
 
     public Color getBackground () {

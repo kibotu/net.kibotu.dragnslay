@@ -1,10 +1,20 @@
 package net.kibotu.dragnslay.general.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import net.kibotu.dragnslay.general.DragnSlayGame;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g3d.materials.Material;
+import com.badlogic.gdx.graphics.g3d.materials.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import net.kibotu.dragnslay.general.Constants;
+import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
+
+import static net.kibotu.dragnslay.general.DragnSlay.*;
 
 /**
  * TODO insert description
@@ -14,11 +24,29 @@ import org.jetbrains.annotations.NotNull;
 public class GameScreen implements Screen {
 
     private static final String TAG = GameScreen.class.getSimpleName();
-    private DragnSlayGame gameContext;
+    private DragnSlay gameContext;
+    private StillModel razorM;
 
-    public GameScreen ( @NotNull final DragnSlayGame gameContext ) {
+    public GameScreen ( @NotNull final DragnSlay gameContext ) {
         this.gameContext = gameContext;
         Logger.v( TAG, "construct" );
+
+        // set default gl state
+        initGL();
+
+        razorM = Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class );
+        Texture razorT = Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class );
+        razorT.setFilter( Texture.TextureFilter.Linear, Texture.TextureFilter.Linear );
+        Material mat = new Material( "razor", new TextureAttribute( razorT, 0, "u_texture01" ) );
+        razorM.setMaterial( mat );
+    }
+
+    private void initGL () {
+        Gdx.graphics.getGL20().glEnable( GL20.GL_BLEND );
+        Gdx.graphics.getGL20().glEnable( GL20.GL_DITHER );
+        Gdx.graphics.getGL20().glEnable( GL20.GL_DEPTH_TEST );
+        Gdx.graphics.getGL20().glDisable( GL20.GL_CULL_FACE );   // important! required for spritebatch
+        Gdx.graphics.getGL20().glEnable( GL20.GL_TEXTURE_2D );
     }
 
     /**
@@ -28,7 +56,20 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render ( final float delta ) {
-        DragnSlayGame.orthographicCamera.clearScreen();
+        phong.begin();
+
+        // camera
+        perspectiveCamera.clearScreen();
+        perspectiveCamera.update();
+        perspectiveCamera.apply( phong );
+
+        // light
+        light.apply( phong );
+
+        // scene
+        razorM.render( phong );
+
+        phong.end();
     }
 
     @Override
@@ -39,8 +80,7 @@ public class GameScreen implements Screen {
     @Override
     public void show () {
         Logger.v( TAG, "show" );
-
-        // TODO load saved stuff
+        phong = Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class );
     }
 
     @Override

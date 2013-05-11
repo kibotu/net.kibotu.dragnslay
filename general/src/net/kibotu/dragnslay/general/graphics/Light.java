@@ -1,6 +1,5 @@
 package net.kibotu.dragnslay.general.graphics;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.sun.istack.internal.NotNull;
@@ -12,66 +11,49 @@ import com.sun.istack.internal.NotNull;
  */
 public class Light {
 
-    public static final int LIGHT_DIRECTIONAL = 0;
-    public static final int LIGHT_POINT = 1;
-    public static final int LIGHT_SPOT = 2;
-    public static final String LIGHT_DIRECTIONAL_UNIFORM = "u_DirectionalLight";
-    public static final String LIGHT_POINT_UNIFORM = "u_PointLight";
-    public static final String LIGHT_SPOT_UNIFORM = "u_SpotLight";
     public Vector3 position;
     public Vector3 direction;
-    public int type;
+    public Type type;
     public boolean isOn;
-    public Color ambient;
-    public Color diffuse;
-    public Color specular;
     protected String name;
-    private ShaderProgram activeShader;
+    private PhongMaterial material;
 
-    public Light(String name, Vector3 position, Vector3 direction, int type, boolean isOn, Color ambient, Color diffuse, Color specular) {
+    public Light ( String name, Vector3 position, Vector3 direction, Type type, boolean isOn ) {
         this.name = name;
         this.position = position;
         this.direction = direction;
         this.type = type;
         this.isOn = isOn;
-        this.ambient = ambient;
-        this.diffuse = diffuse;
-        this.specular = specular;
+        this.material = PhongMaterial.createDefaultMaterial();
     }
 
-    public Light(String name, float posX, float posY, float posZ, float dirX, float dirY, float dirZ) {
-        this( name, new Vector3( posX, posY, posZ ), new Vector3( dirX, dirY, dirZ ), LIGHT_DIRECTIONAL, true, new Color( 0.3f, 0.3f, 0.3f, 1f ), new Color( 1f, 1f, 1f, 1f ), new Color( 1f, 1f, 1f, 1f ) );
+    public Light ( String name, float posX, float posY, float posZ, float dirX, float dirY, float dirZ ) {
+        this( name, new Vector3( posX, posY, posZ ), new Vector3( dirX, dirY, dirZ ), Type.u_DirectionalLight, true );
     }
 
-    public void apply(@NotNull ShaderProgram program) {
+    public Light ( final Type type, final int posX, final int posY, final int posZ, final int dirX, final int dirY, final int dirZ ) {
+        this( type.name(), posX, posY, posZ, dirX, dirY, dirZ );
+    }
+
+    public void apply ( @NotNull ShaderProgram program ) {
         program.setUniformf( name + ".position", position.x, position.y, position.z );
 
         switch ( type ) {
-            case 0:
+            case u_DirectionalLight:
                 program.setUniformf( name + ".direction", direction.x, direction.y, direction.z );
                 break;
-            case 1:
+            case u_PointLight:
                 break; // TODO implement me
 
-            case 2:
+            case u_SpotLight:
                 break; // TODO implement me
         }
         program.setUniformi( name + ".isOn", isOn ? 1 : 0 );
-        program.setUniformi( name + ".type", LIGHT_DIRECTIONAL );
-//        program.setUniformf(name + ".ambient", ambient.r, ambient.g, ambient.b, ambient.a);
-//        program.setUniformf(name + ".diffuse", diffuse.r, diffuse.g, diffuse.b, diffuse.a);
-//        program.setUniformf(name + ".specular", specular.r, specular.g, specular.b, specular.a);
+        program.setUniformi( name + ".type", Type.u_DirectionalLight.ordinal() );
+        material.apply( program );
     }
 
-    public ShaderProgram getActiveShader() {
-        return activeShader;
-    }
-
-    public void setActiveShader(ShaderProgram activeShader) {
-        this.activeShader = activeShader;
-    }
-
-    public void apply() {
-        apply( activeShader );
+    public enum Type {
+        u_DirectionalLight, u_PointLight, u_SpotLight
     }
 }

@@ -17,6 +17,12 @@ final public class Constants {
     public static final Logger.Level LOGGING_LEVEL = Logger.Level.VERBOSE;
 
     /**
+     * Screens
+     */
+
+    public static final long SPLASH_SCREEN_DISPLAY_TIME = 750;
+
+    /**
      * FILE PATHS
      */
 

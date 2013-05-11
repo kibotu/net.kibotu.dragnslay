@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import net.kibotu.dragnslay.general.DragnSlayGame;
+import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.screens.helper.LoadingBar;
 
@@ -30,9 +30,9 @@ public class Loader implements Screen {
     private float startX, endX;
     private float percent;
     private Actor loadingBar;
-    private DragnSlayGame gameContext;
+    private DragnSlay gameContext;
 
-    public Loader ( DragnSlayGame gameContext ) {
+    public Loader ( DragnSlay gameContext ) {
         this.gameContext = gameContext;
     }
 

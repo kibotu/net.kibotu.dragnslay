@@ -5,13 +5,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import net.kibotu.dragnslay.general.Constants;
-import net.kibotu.dragnslay.general.DragnSlayGame;
+import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import static net.kibotu.dragnslay.general.DragnSlayGame.batch;
-import static net.kibotu.dragnslay.general.DragnSlayGame.orthographicCamera;
+import static net.kibotu.dragnslay.general.DragnSlay.batch;
+import static net.kibotu.dragnslay.general.DragnSlay.orthographicCamera;
 
 /**
  * TODO insert description
@@ -21,11 +21,11 @@ import static net.kibotu.dragnslay.general.DragnSlayGame.orthographicCamera;
 public class LoadingScreen implements Screen {
 
     private static final String TAG = LoadingScreen.class.getSimpleName();
-    private DragnSlayGame gameContext;
+    private DragnSlay gameContext;
     private Sprite bgSprite;
     private GameScreen gameScreen;
 
-    public LoadingScreen ( @NotNull final DragnSlayGame gameContext ) {
+    public LoadingScreen ( @NotNull final DragnSlay gameContext ) {
         this.gameContext = gameContext;
         Logger.v( TAG, "construct" );
 
@@ -39,7 +39,7 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void render ( final float delta ) {
-        DragnSlayGame.orthographicCamera.clearScreen();
+        DragnSlay.orthographicCamera.clearScreen();
 
         batch.setProjectionMatrix( orthographicCamera.combined );
         batch.begin();
@@ -64,7 +64,7 @@ public class LoadingScreen implements Screen {
         Logger.v( TAG, "show" );
 
         // load game assets
-        Assets.create();
+        Assets.loadGameAssets();
     }
 
     @Override
