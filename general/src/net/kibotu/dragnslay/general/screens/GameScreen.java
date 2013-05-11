@@ -45,7 +45,7 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
 
 //        Logger.v( TAG, "compassAvail: " + Gdx.input.isPeripheralAvailable( Input.Peripheral.Compass ) );
 
-        Gdx.input.setInputProcessor( new GestureDetector( this ) );
+//        Gdx.input.setInputProcessor( new GestureDetector( this ) );
 
         world = new World();
 
@@ -97,7 +97,7 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
         world.setDelta( delta );
         world.process();
 
-//        razor.getRotation().setEulerAngles( Gdx.input.getPitch(), Gdx.input.getRoll(), Gdx.input.getAzimuth() );
+        razor.getRotation().setEulerAngles( Gdx.input.getPitch(), Gdx.input.getRoll(), Gdx.input.getAzimuth() );
 
         // scene
         scene.render( phong );
