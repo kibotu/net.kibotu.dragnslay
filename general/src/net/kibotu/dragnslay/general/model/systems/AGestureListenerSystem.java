@@ -10,9 +10,9 @@ import com.badlogic.gdx.math.Vector2;
  * implementation for GestureListener methods to keep the concrete classes slim.
  */
 
-public abstract class GestureListenerSystem extends EntitySystem implements GestureListener {
+public abstract class AGestureListenerSystem extends EntitySystem implements GestureListener {
 
-    public GestureListenerSystem ( Aspect aspect ) {
+    public AGestureListenerSystem ( Aspect aspect ) {
         super( aspect );
     }
 

@@ -17,7 +17,7 @@ public class MeshNode extends RootNode {
     public static final String TAG = MeshNode.class.getSimpleName();
     public static final String u_ModelView = "u_ModelView";
     public static final String u_texture01 = "u_texture01";
-    private StillModel model;
+    public StillModel model;
 
     public MeshNode ( @NotNull StillModel model, final Texture texture ) {
         super();
