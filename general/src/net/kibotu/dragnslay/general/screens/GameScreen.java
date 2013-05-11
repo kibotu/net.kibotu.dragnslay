@@ -1,5 +1,6 @@
 package net.kibotu.dragnslay.general.screens;
 
+import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -24,6 +25,7 @@ import static net.kibotu.dragnslay.general.DragnSlay.*;
 public class GameScreen implements Screen {
 
     private static final String TAG = GameScreen.class.getSimpleName();
+    private final World world = new World();
     private DragnSlay gameContext;
     private RootNode scene;
 
@@ -33,6 +35,8 @@ public class GameScreen implements Screen {
 
         // set default gl state
         initGL();
+
+
 
         scene = new RootNode();
         MeshNode razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
