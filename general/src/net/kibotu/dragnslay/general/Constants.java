@@ -35,12 +35,8 @@ final public class Constants {
     /**
      * SHADER
      */
-    public static final String SHADER_LIBGDX_DEFAULT = "LIBGDX_DEFAULT_SHADER";
-    public static final String SHADER_PHONG = "PHONG_SHADER";
-    public static final String SHADER_Libgdx_DefaultShader_vsh = SHADER_PATH + "Libgdx_DefaultShader.vsh";
-    public static final String SHADER_Libgdx_DefaultShader_fsh = SHADER_PATH + "Libgdx_DefaultShader.fsh";
-    public static final String SHADER_Phong_vsh = SHADER_PATH + "Phong.vsh";
-    public static final String SHADER_Phong_fsh = SHADER_PATH + "Phong.fsh";
+    public static final String SHADER_LIBGDX_DEFAULT = SHADER_PATH + "Libgdx_DefaultShader";
+    public static final String SHADER_PHONG = SHADER_PATH + "Phong";
 
     /**
      * Meshes

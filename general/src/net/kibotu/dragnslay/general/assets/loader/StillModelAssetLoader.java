@@ -14,9 +14,9 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */
-public class StillModelLoader extends SynchronousAssetLoader<StillModel, AssetLoaderParameters<StillModel>> {
+public class StillModelAssetLoader extends SynchronousAssetLoader<StillModel, AssetLoaderParameters<StillModel>> {
 
-    public StillModelLoader ( FileHandleResolver resolver ) {
+    public StillModelAssetLoader ( FileHandleResolver resolver ) {
         super( resolver );
     }
 
