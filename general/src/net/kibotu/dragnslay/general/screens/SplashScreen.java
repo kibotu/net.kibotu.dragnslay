@@ -56,7 +56,7 @@ public class SplashScreen implements Screen {
         // switching screens
         if ( System.currentTimeMillis() - startTime > TIME_TO_WAIT ) {
             Logger.v( TAG, "Splash time exceeded" );
-            gameContext.setScreen( new LoadingScreen( gameContext ) );
+            gameContext.setScreen( DragnSlayGame.loadingScreen = new LoadingScreen( gameContext ) );
             dispose();
         }
     }

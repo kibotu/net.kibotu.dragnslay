@@ -43,7 +43,7 @@ final public class Constants {
      * Meshes
      */
 
-    public static final String MODEL_BLA = MODELS_PATH + "bla.obj";
+    public static final String MODEL_RAZOR = MODELS_PATH + "razor.obj";
 
     /**
      * Textures
@@ -51,6 +51,7 @@ final public class Constants {
 
     public static final String TEXTURE_SPLASH_SCREEN = ATLASES_PATH + "splashscreen.png";
     public static final String TEXTURE_LOADING_SCREEN = ATLASES_PATH + "loadingscreen.png";
+    public static final String TEXTURE_RAZOR = ATLASES_PATH + "razor.png";
 
 
     private Constants () {

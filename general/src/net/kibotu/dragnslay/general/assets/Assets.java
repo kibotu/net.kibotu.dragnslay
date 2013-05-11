@@ -29,7 +29,7 @@ public enum Assets {
 
     public static void loadModels () {
         Logger.v( TAG, "load model assets" );
-//        manager.load( MODEL_BLA, StillModel.class );
+        manager.load( MODEL_RAZOR, StillModel.class );
     }
 
     /**
@@ -42,6 +42,7 @@ public enum Assets {
 
     public static void loadSprites () {
         Logger.v( TAG, "load sprites assets" );
+        manager.load( TEXTURE_RAZOR, Texture.class );
     }
 
     /**
@@ -52,6 +53,12 @@ public enum Assets {
         loadShaderAssets();
         loadModels();
         loadSprites();
+    }
+
+    public static void resume() {
+        create();
+        manager.load( SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
+        manager.finishLoading();
     }
 
     /**
@@ -66,6 +73,8 @@ public enum Assets {
         Logger.v( TAG, "unload assets" );
         manager.unload( SHADER_LIBGDX_DEFAULT );
         manager.unload( SHADER_PHONG );
+        manager.unload( MODEL_RAZOR );
+        manager.unload( TEXTURE_RAZOR );
     }
 
     public static void loadSplashScreen () {

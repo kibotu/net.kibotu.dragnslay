@@ -2,6 +2,7 @@ package net.kibotu.dragnslay.general.screens;
 
 import com.badlogic.gdx.Screen;
 import net.kibotu.dragnslay.general.DragnSlayGame;
+import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,8 +58,6 @@ public class GameScreen implements Screen {
     @Override
     public void resume () {
         Logger.v( TAG, "resume" );
-
-        // TODO re-allocate screen related stuff
     }
 
     @Override

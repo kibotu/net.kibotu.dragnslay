@@ -23,6 +23,7 @@ public class LoadingScreen implements Screen {
     private static final String TAG = LoadingScreen.class.getSimpleName();
     private DragnSlayGame gameContext;
     private Sprite bgSprite;
+    private GameScreen gameScreen;
 
     public LoadingScreen ( @NotNull final DragnSlayGame gameContext ) {
         this.gameContext = gameContext;

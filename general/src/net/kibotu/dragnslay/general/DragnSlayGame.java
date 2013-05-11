@@ -1,10 +1,15 @@
 package net.kibotu.dragnslay.general;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.graphics.GLESOrthographicCamera;
+import net.kibotu.dragnslay.general.graphics.GLESPerspectiveCamera;
+import net.kibotu.dragnslay.general.graphics.Light;
+import net.kibotu.dragnslay.general.screens.LoadingScreen;
 import net.kibotu.dragnslay.general.screens.SplashScreen;
 import net.kibotu.logger.Logger;
 
@@ -24,6 +29,9 @@ public class DragnSlayGame extends Game {
     public static ShaderProgram libgdx;
     public static ShaderProgram phong;
     public static GLESOrthographicCamera orthographicCamera;
+    public static GLESPerspectiveCamera perspectiveCamera;
+    public static Light light;
+    public static LoadingScreen loadingScreen;
 
     public DragnSlayGame () {
         super();
@@ -32,8 +40,28 @@ public class DragnSlayGame extends Game {
     @Override
     public void create () {
         Logger.v( TAG, "create" );
-        orthographicCamera = new GLESOrthographicCamera();
+        initCameras();
+        initLights();
         setScreen( new SplashScreen( this ) );
+    }
+
+    private void initLights () {
+        light = new Light( Light.LIGHT_DIRECTIONAL_UNIFORM, 0, 0, - 35, 0, 0, 1 );
+    }
+
+    private void initCameras () {
+
+        // orthographic camera for sprite batch
+        orthographicCamera = new GLESOrthographicCamera();
+        orthographicCamera.setBackground( Color.DARK_GRAY );
+
+        // camera
+        perspectiveCamera = new GLESPerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+        perspectiveCamera.position.set( 0, 0, 35 );
+        perspectiveCamera.direction.set( 0, 0, - 1 );
+        perspectiveCamera.near = 0.5f;
+        perspectiveCamera.far = 1000f;
+        perspectiveCamera.setBackground( Color.DARK_GRAY );
     }
 
     @Override
@@ -53,16 +81,12 @@ public class DragnSlayGame extends Game {
 
     @Override
     public void resume () {
-        super.resume();
         Logger.v( TAG, "resume" );
-
-        // re-allocate stuff
-        Assets.create();
-
-        // do fancy loading screen
-        // might be null now
+        // TODO rework me with loading screen and dry
+        Assets.resume();
         libgdx = Assets.manager.get( Constants.SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
         batch = new SpriteBatch( 1000, libgdx );
+        super.resume();
     }
 
     @Override
