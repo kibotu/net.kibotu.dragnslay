@@ -33,8 +33,9 @@ final public class Constants {
     public static final String FLURRY_API_KEY = "";
 
     /**
-     * SHADER
+     * SHADER see {@link net.kibotu.dragnslay.general.assets.loader.ShaderAssetLoader}
      */
+
     public static final String SHADER_LIBGDX_DEFAULT = SHADER_PATH + "Libgdx_DefaultShader";
     public static final String SHADER_PHONG = SHADER_PATH + "Phong";
 
@@ -48,7 +49,8 @@ final public class Constants {
      * Textures
      */
 
-    public static final String TEXTURE_WHITE = ATLASES_PATH + "white.png";
+    public static final String TEXTURE_SPLASH_SCREEN = ATLASES_PATH + "splashscreen.png";
+    public static final String TEXTURE_LOADING_SCREEN = ATLASES_PATH + "loadingscreen.png";
 
 
     private Constants () {

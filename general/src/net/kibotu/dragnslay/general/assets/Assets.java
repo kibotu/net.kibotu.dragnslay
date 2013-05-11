@@ -37,13 +37,11 @@ public enum Assets {
      */
     public static void loadShaderAssets () {
         Logger.v( TAG, "load shader assets" );
-        manager.load( SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
         manager.load( SHADER_PHONG, ShaderProgram.class );
     }
 
     public static void loadSprites () {
         Logger.v( TAG, "load sprites assets" );
-        manager.load( TEXTURE_WHITE, Texture.class );
     }
 
     /**
@@ -66,25 +64,31 @@ public enum Assets {
 
     private static void unload () {
         Logger.v( TAG, "unload assets" );
-        manager.unload( TEXTURE_WHITE );
         manager.unload( SHADER_LIBGDX_DEFAULT );
         manager.unload( SHADER_PHONG );
     }
 
     public static void loadSplashScreen () {
         Logger.v( TAG, "allocate splash screen assets" );
+        manager.load( TEXTURE_SPLASH_SCREEN, Texture.class );
+        manager.load( SHADER_LIBGDX_DEFAULT, ShaderProgram.class );
+        manager.finishLoading();
     }
 
     public static void unloadSplashScreen () {
         Logger.v( TAG, "unload splash screen assets" );
+        manager.unload( TEXTURE_SPLASH_SCREEN );
     }
 
     public static void loadLoadingScreen () {
         Logger.v( TAG, "allocate loading screen assets" );
+        manager.load( TEXTURE_LOADING_SCREEN, Texture.class );
+        manager.finishLoading();
     }
 
     public static void unloadLoadingScreen () {
         Logger.v( TAG, "unload loading screen assets" );
+        manager.unload( TEXTURE_LOADING_SCREEN );
     }
 
     public static void dispose () {

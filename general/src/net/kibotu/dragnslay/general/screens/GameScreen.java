@@ -1,6 +1,5 @@
 package net.kibotu.dragnslay.general.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import net.kibotu.dragnslay.general.DragnSlayGame;
 import net.kibotu.logger.Logger;
@@ -28,6 +27,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render ( final float delta ) {
+        DragnSlayGame.orthographicCamera.clearScreen();
     }
 
     @Override
