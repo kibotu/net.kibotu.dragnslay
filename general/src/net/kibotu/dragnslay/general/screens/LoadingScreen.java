@@ -1,10 +1,17 @@
 package net.kibotu.dragnslay.general.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import net.kibotu.dragnslay.general.DragnSlayGame;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import net.kibotu.dragnslay.general.Constants;
+import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
+
+import static net.kibotu.dragnslay.general.DragnSlay.batch;
+import static net.kibotu.dragnslay.general.DragnSlay.orthographicCamera;
 
 /**
  * TODO insert description
@@ -14,17 +21,30 @@ import org.jetbrains.annotations.NotNull;
 public class LoadingScreen implements Screen {
 
     private static final String TAG = LoadingScreen.class.getSimpleName();
-    private DragnSlayGame gameContext;
+    private DragnSlay gameContext;
+    private Sprite bgSprite;
+    private GameScreen gameScreen;
 
-    public LoadingScreen ( @NotNull final DragnSlayGame gameContext ) {
+    public LoadingScreen ( @NotNull final DragnSlay gameContext ) {
         this.gameContext = gameContext;
         Logger.v( TAG, "construct" );
 
+        // load loading screen texture
         Assets.loadLoadingScreen();
+
+        bgSprite = new Sprite( Assets.manager.get( Constants.TEXTURE_LOADING_SCREEN, Texture.class ) );
+        bgSprite.rotate90( true );
+        bgSprite.setBounds( 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
     }
 
     @Override
     public void render ( final float delta ) {
+        DragnSlay.orthographicCamera.clearScreen();
+
+        batch.setProjectionMatrix( orthographicCamera.combined );
+        batch.begin();
+        bgSprite.draw( batch );
+        batch.end();
 
         Logger.v( TAG, String.format( "Current progress %f", Assets.manager.getProgress() ) );
         if ( Assets.manager.update() ) {
@@ -44,7 +64,7 @@ public class LoadingScreen implements Screen {
         Logger.v( TAG, "show" );
 
         // load game assets
-        Assets.create();
+        Assets.loadGameAssets();
     }
 
     @Override
