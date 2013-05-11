@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g3d.materials.Material;
 import com.badlogic.gdx.graphics.g3d.materials.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Matrix4;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
@@ -23,9 +24,11 @@ import static net.kibotu.dragnslay.general.DragnSlay.*;
  */
 public class GameScreen implements Screen {
 
+    public static final String MODEL_VIEW = "u_ModelView";
     private static final String TAG = GameScreen.class.getSimpleName();
     private DragnSlay gameContext;
     private StillModel razorM;
+    private Matrix4 modelviewmatrx = new Matrix4();
 
     public GameScreen ( @NotNull final DragnSlay gameContext ) {
         this.gameContext = gameContext;
@@ -66,6 +69,7 @@ public class GameScreen implements Screen {
         // light
         light.apply( phong );
 
+        phong.setUniformMatrix( MODEL_VIEW, modelviewmatrx);
         // scene
         razorM.render( phong );
 

@@ -46,7 +46,7 @@ public class DragnSlay extends Game {
     }
 
     private void initLights () {
-        light = new Light( Light.Type.u_DirectionalLight, 0, 0, - 35, 0, 0, 1 );
+        light = new Light( Light.Type.u_DirectionalLight, 0, 0, - 10, 0, 0, 1 );
     }
 
     private void initCameras () {
@@ -57,7 +57,7 @@ public class DragnSlay extends Game {
 
         // camera
         perspectiveCamera = new GLESPerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-        perspectiveCamera.position.set( 0, 0, 35 );
+        perspectiveCamera.position.set( 0, 0, 5 );
         perspectiveCamera.direction.set( 0, 0, - 1 );
         perspectiveCamera.near = 0.5f;
         perspectiveCamera.far = 1000f;
