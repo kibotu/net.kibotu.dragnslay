@@ -15,13 +15,11 @@ final public class Constants {
 
     public static final String APP_TAG = "DNS";
     public static final Logger.Level LOGGING_LEVEL = Logger.Level.VERBOSE;
-
     /**
      * Screens
      */
 
     public static final long SPLASH_SCREEN_DISPLAY_TIME = 750;
-
     /**
      * FILE PATHS
      */
@@ -31,26 +29,22 @@ final public class Constants {
     public static final String SHADER_PATH = GRAPHICS_PATH + "Shader/";
     public static final String ATLASES_PATH = GRAPHICS_PATH + "Atlases/";
     public static final String MODELS_PATH = GRAPHICS_PATH + "Models/";
-
     /**
      * Flurry
      */
 
     public static final String FLURRY_API_KEY = "";
-
     /**
      * SHADER see {@link net.kibotu.dragnslay.general.assets.loader.ShaderAssetLoader}
      */
 
     public static final String SHADER_LIBGDX_DEFAULT = SHADER_PATH + "Libgdx_DefaultShader";
     public static final String SHADER_PHONG = SHADER_PATH + "Phong";
-
     /**
      * Meshes
      */
 
     public static final String MODEL_RAZOR = MODELS_PATH + "razor.obj";
-
     /**
      * Textures
      */
@@ -58,7 +52,8 @@ final public class Constants {
     public static final String TEXTURE_SPLASH_SCREEN = ATLASES_PATH + "splashscreen.png";
     public static final String TEXTURE_LOADING_SCREEN = ATLASES_PATH + "loadingscreen.png";
     public static final String TEXTURE_RAZOR = ATLASES_PATH + "razor.png";
-
+    public static final String TEXTURE_CRATE = ATLASES_PATH + "crate.png";
+    public static final String TEXTURE_EARTH = ATLASES_PATH + "earth.png";
 
     private Constants () {
     }

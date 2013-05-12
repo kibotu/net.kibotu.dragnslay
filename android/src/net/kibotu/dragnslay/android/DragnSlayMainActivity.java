@@ -3,6 +3,7 @@ package net.kibotu.dragnslay.android;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.SurfaceView;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import net.kibotu.dragnslay.general.Constants;
@@ -25,8 +26,8 @@ public class DragnSlayMainActivity extends AndroidApplication {
         // app cfg
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = true;
-        cfg.useAccelerometer = false;
-        cfg.useCompass = false;
+        cfg.useAccelerometer = true;
+        cfg.useCompass = true;
         cfg.r = 8;
         cfg.g = 8;
         cfg.b = 8;

@@ -49,6 +49,8 @@ public enum Assets {
     public static void loadSprites () {
         Logger.v( TAG, "load sprites assets" );
         manager.load( TEXTURE_RAZOR, Texture.class, mipMapFilter );
+        manager.load( TEXTURE_CRATE, Texture.class, mipMapFilter );
+        manager.load( TEXTURE_EARTH, Texture.class, mipMapFilter );
     }
 
     /**
@@ -81,6 +83,8 @@ public enum Assets {
         manager.unload( SHADER_PHONG );
         manager.unload( MODEL_RAZOR );
         manager.unload( TEXTURE_RAZOR );
+        manager.unload( TEXTURE_CRATE );
+        manager.unload( TEXTURE_EARTH );
     }
 
     public static void loadSplashScreen () {
