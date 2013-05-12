@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.collision.Ray;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
+import net.kibotu.dragnslay.general.graphics.primitives.Cube;
 import net.kibotu.dragnslay.general.graphics.scene.MeshNode;
 import net.kibotu.dragnslay.general.graphics.scene.RootNode;
 import net.kibotu.logger.Logger;
@@ -45,7 +46,7 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
 
 //        Logger.v( TAG, "compassAvail: " + Gdx.input.isPeripheralAvailable( Input.Peripheral.Compass ) );
 
-//        Gdx.input.setInputProcessor( new GestureDetector( this ) );
+        Gdx.input.setInputProcessor( new GestureDetector( this ) );
 
         world = new World();
 
@@ -63,7 +64,11 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
 
     private void createEntities () {
         scene = new RootNode();
-        razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
+//        razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
+
+        Cube cube = new Cube();
+        razor = new MeshNode( cube.model, Assets.manager.get( Constants.TEXTURE_CRATE, Texture.class ) );
+
         scene.addChild( razor );
         razorBox = new BoundingBox();
         razor.model.getBoundingBox( razorBox );

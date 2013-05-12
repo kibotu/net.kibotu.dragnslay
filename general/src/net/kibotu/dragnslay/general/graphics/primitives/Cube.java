@@ -1,15 +1,10 @@
 package net.kibotu.dragnslay.general.graphics.primitives;
 
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g3d.model.SubMesh;
+import com.badlogic.gdx.graphics.g3d.materials.Material;
 import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.g3d.model.still.StillSubMesh;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.utils.FloatArray;
-
-import java.util.ArrayList;
 
 /**
  * TODO insert description
@@ -19,93 +14,68 @@ import java.util.ArrayList;
 public class Cube {
 
     private static final String TAG = Cube.class.getSimpleName();
-
-    private StillModel model;
+    public StillModel model;
 
     public Cube () {
-        model = new StillModel();
+        create();
     }
 
-    public void build () {
+    private void create () {
 
-        final FloatArray verts;
-        final FloatArray norms;
-        final FloatArray uvs;
+        int maxVertices = 24;
+        int faces = 12;
+        int maxIndices = faces * 3;
 
-        verts = new FloatArray( 300 );
-        norms = new FloatArray( 300 );
-        uvs = new FloatArray( 200 );
+        VertexHelper helper = new VertexHelper( maxVertices, maxIndices );
+        float c = 1f;
 
+        // build interleaved vertices
+        helper.addVertex( c, - c, - c, 0, - c, 0, 0, 0 );
+        helper.addVertex( c, - c, c, 0, - c, 0, c, 0 );
+        helper.addVertex( - c, - c, c, 0, - c, 0, c, c );
+        helper.addVertex( - c, - c, - c, 0, - c, 0, 0, c );
+        helper.addVertex( c, c, - c, 0, c, 0, 0, 0 );
+        helper.addVertex( - c, c, - c, 0, c, 0, c, 0 );
+        helper.addVertex( - c, c, c, 0, c, 0, c, c );
+        helper.addVertex( c, c, c, 0, c, 0, 0, c );
+        helper.addVertex( c, - c, - c, c, 0, 0, 0, 0 );
+        helper.addVertex( c, c, - c, c, 0, 0, c, 0 );
+        helper.addVertex( c, c, c, c, 0, 0, c, c );
+        helper.addVertex( c, - c, c, c, 0, 0, 0, c );
+        helper.addVertex( c, - c, c, - 0, - 0, c, 0, 0 );
+        helper.addVertex( c, c, c, - 0, - 0, c, c, 0 );
+        helper.addVertex( - c, c, c, - 0, - 0, c, c, c );
+        helper.addVertex( - c, - c, c, - 0, - 0, c, 0, c );
+        helper.addVertex( - c, - c, c, - c, - 0, - 0, 0, 0 );
+        helper.addVertex( - c, c, c, - c, - 0, - 0, c, 0 );
+        helper.addVertex( - c, c, - c, - c, - 0, - 0, c, c );
+        helper.addVertex( - c, - c, - c, - c, - 0, - 0, 0, c );
+        helper.addVertex( c, c, - c, 0, 0, - c, 0, 0 );
+        helper.addVertex( c, - c, - c, 0, 0, - c, c, 0 );
+        helper.addVertex( - c, - c, - c, 0, 0, - c, c, c );
+        helper.addVertex( - c, c, - c, 0, 0, - c, 0, c );
 
+        // build indices
+        helper.addFace( 0, 1, 2 );
+        helper.addFace( 0, 2, 3 );
+        helper.addFace( 4, 5, 6 );
+        helper.addFace( 4, 6, 7 );
+        helper.addFace( 8, 9, 10 );
+        helper.addFace( 8, 10, 11 );
+        helper.addFace( 12, 13, 14 );
+        helper.addFace( 12, 14, 15 );
+        helper.addFace( 16, 17, 18 );
+        helper.addFace( 16, 18, 19 );
+        helper.addFace( 20, 21, 22 );
+        helper.addFace( 20, 22, 23 );
 
+        // actual mesh
+        Mesh mesh = new Mesh( true, maxVertices, maxIndices, VertexHelper.getVertexAttributes() );
+        mesh.setVertices( helper.finalVerts );
+        mesh.setIndices( helper.finalIndices );
 
-
-//
-//        ArrayList<VertexAttribute> attributes = new ArrayList<>();
-//        attributes.add(new VertexAttribute( VertexAttributes.Usage.Position, 3, ShaderProgram.POSITION_ATTRIBUTE));
-//        attributes.add(new VertexAttribute( VertexAttributes.Usage.Normal, 3, ShaderProgram.NORMAL_ATTRIBUTE));
-//        attributes.add(new VertexAttribute( VertexAttributes.Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"));
-//
-//        mesh = new Mesh(true, numFaces * 3, numIndices, attributes.toArray(new VertexAttribute[attributes.size()]));
-//        mesh.setVertices(finalVerts);
-//        if (numIndices > 0) mesh.setIndices(finalIndices);
-//
-//
-
-
-
-
-        VertexAttributes vertexAttributes = new VertexAttributes();
-        Mesh mesh = new Mesh( true, 24, 12, vertexAttributes);
-
-        StillSubMesh [] stillSubMesh = new StillSubMesh[1];
-        model = new StillModel(stillSubMesh) ;
+        // add mesh to model
+        model = new StillModel( new StillSubMesh( TAG, mesh, GL10.GL_TRIANGLES ) );
+        model.setMaterial( new Material( TAG ) );
     }
-
-//    protected void setupInternal(@NotNull ProcessingState state) {
-//        if (mesh != null) return;
-//        this.mesh = new Mesh(24, 12);
-//
-//        final float c = 1f;
-//        Color4 emissive = material.getEmission();
-//
-//        mesh.addVertex(c, -c, -c, 0, -c, 0, emissive.r, emissive.g, emissive.b, emissive.a, 0, 0);
-//        mesh.addVertex(c, -c, c, 0, -c, 0, emissive.r, emissive.g, emissive.b, emissive.a, c, 0);
-//        mesh.addVertex(-c, -c, c, 0, -c, 0, emissive.r, emissive.g, emissive.b, emissive.a, c, c);
-//        mesh.addVertex(-c, -c, -c, 0, -c, 0, emissive.r, emissive.g, emissive.b, emissive.a, 0, c);
-//        mesh.addVertex(c, c, -c, 0, c, 0, emissive.r, emissive.g, emissive.b, emissive.a, 0, 0);
-//        mesh.addVertex(-c, c, -c, 0, c, 0, emissive.r, emissive.g, emissive.b, emissive.a, c, 0);
-//        mesh.addVertex(-c, c, c, 0, c, 0, emissive.r, emissive.g, emissive.b, emissive.a, c, c);
-//        mesh.addVertex(c, c, c, 0, c, 0, emissive.r, emissive.g, emissive.b, emissive.a, 0, c);
-//        mesh.addVertex(c, -c, -c, c, 0, 0, emissive.r, emissive.g, emissive.b, emissive.a, 0, 0);
-//        mesh.addVertex(c, c, -c, c, 0, 0, emissive.r, emissive.g, emissive.b, emissive.a, c, 0);
-//        mesh.addVertex(c, c, c, c, 0, 0, emissive.r, emissive.g, emissive.b, emissive.a, c, c);
-//        mesh.addVertex(c, -c, c, c, 0, 0, emissive.r, emissive.g, emissive.b, emissive.a, 0, c);
-//        mesh.addVertex(c, -c, c, -0, -0, c, emissive.r, emissive.g, emissive.b, emissive.a, 0, 0);
-//        mesh.addVertex(c, c, c, -0, -0, c, emissive.r, emissive.g, emissive.b, emissive.a, c, 0);
-//        mesh.addVertex(-c, c, c, -0, -0, c, emissive.r, emissive.g, emissive.b, emissive.a, c, c);
-//        mesh.addVertex(-c, -c, c, -0, -0, c, emissive.r, emissive.g, emissive.b, emissive.a, 0, c);
-//        mesh.addVertex(-c, -c, c, -c, -0, -0, emissive.r, emissive.g, emissive.b, emissive.a, 0, 0);
-//        mesh.addVertex(-c, c, c, -c, -0, -0, emissive.r, emissive.g, emissive.b, emissive.a, c, 0);
-//        mesh.addVertex(-c, c, -c, -c, -0, -0, emissive.r, emissive.g, emissive.b, emissive.a, c, c);
-//        mesh.addVertex(-c, -c, -c, -c, -0, -0, emissive.r, emissive.g, emissive.b, emissive.a, 0, c);
-//        mesh.addVertex(c, c, -c, 0, 0, -c, emissive.r, emissive.g, emissive.b, emissive.a, 0, 0);
-//        mesh.addVertex(c, -c, -c, 0, 0, -c, emissive.r, emissive.g, emissive.b, emissive.a, c, 0);
-//        mesh.addVertex(-c, -c, -c, 0, 0, -c, emissive.r, emissive.g, emissive.b, emissive.a, c, c);
-//        mesh.addVertex(-c, c, -c, 0, 0, -c, emissive.r, emissive.g, emissive.b, emissive.a, 0, c);
-//
-//        mesh.faces.add(0, 1, 2);
-//        mesh.faces.add(0, 2, 3);
-//        mesh.faces.add(4, 5, 6);
-//        mesh.faces.add(4, 6, 7);
-//        mesh.faces.add(8, 9, 10);
-//        mesh.faces.add(8, 10, 11);
-//        mesh.faces.add(12, 13, 14);
-//        mesh.faces.add(12, 14, 15);
-//        mesh.faces.add(16, 17, 18);
-//        mesh.faces.add(16, 18, 19);
-//        mesh.faces.add(20, 21, 22);
-//        mesh.faces.add(20, 22, 23);
-//    }
-
 }

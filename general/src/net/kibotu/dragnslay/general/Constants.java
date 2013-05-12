@@ -58,6 +58,7 @@ final public class Constants {
     public static final String TEXTURE_SPLASH_SCREEN = ATLASES_PATH + "splashscreen.png";
     public static final String TEXTURE_LOADING_SCREEN = ATLASES_PATH + "loadingscreen.png";
     public static final String TEXTURE_RAZOR = ATLASES_PATH + "razor.png";
+    public static final String TEXTURE_CRATE = ATLASES_PATH + "crate.png";
 
 
     private Constants () {

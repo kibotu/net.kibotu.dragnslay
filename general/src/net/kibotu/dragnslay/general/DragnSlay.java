@@ -56,11 +56,11 @@ public class DragnSlay extends Game {
 
         // camera
         perspectiveCamera = new GLESPerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-        perspectiveCamera.position.set( 0, 0, 3 );
+        perspectiveCamera.position.set( 0, 0, 4 );
         perspectiveCamera.direction.set( 0, 0, - 1 );
-        perspectiveCamera.near = 0.5f;
+        perspectiveCamera.near = 0.1f;
         perspectiveCamera.far = 1000f;
-//        perspectiveCamera.setBackground( Color.DARK_GRAY );
+        perspectiveCamera.setBackground( Color.DARK_GRAY );
     }
 
     @Override

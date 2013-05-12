@@ -1,7 +1,6 @@
 package net.kibotu.dragnslay.general.graphics.scene;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.materials.Material;
 import com.badlogic.gdx.graphics.g3d.materials.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -14,6 +13,11 @@ import com.sun.istack.internal.NotNull;
  */
 public class MeshNode extends RootNode {
 
+    static {
+        // disable default materials forcing shader attributes
+        ShaderProgram.pedantic = false;
+    }
+
     public static final String TAG = MeshNode.class.getSimpleName();
     public static final String u_ModelView = "u_ModelView";
     public static final String u_texture01 = "u_texture01";
@@ -23,7 +27,7 @@ public class MeshNode extends RootNode {
         super();
         this.model = model;
         texture.setFilter( Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Nearest );
-        model.setMaterial( new Material( "razor", new TextureAttribute( texture, 0, u_texture01 ) ) );
+        model.getSubMeshes()[0].material.addAttribute( new TextureAttribute( texture, 0, u_texture01 ) );
     }
 
     @Override
