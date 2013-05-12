@@ -42,6 +42,12 @@ public class GameScreen implements Screen {
         // init input multiplexer
         Gdx.input.setInputProcessor( new InputMultiplexer() );
 
+        // assemble world
+        createWorld();
+    }
+
+    private void createWorld () {
+
         // create world
         world = new World();
         PerspectiveCamera camera = new PerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
@@ -60,7 +66,7 @@ public class GameScreen implements Screen {
         // add camera
         world.addEntity( EntityBuilder.createCamera( camera ) );
 
-        // assemble world
+        // add entities
         createEntities();
     }
 
