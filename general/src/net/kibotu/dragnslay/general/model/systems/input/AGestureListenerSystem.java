@@ -1,4 +1,4 @@
-package net.kibotu.dragnslay.general.model.systems;
+package net.kibotu.dragnslay.general.model.systems.input;
 
 import com.artemis.Aspect;
 import com.artemis.EntitySystem;
@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
  * Base class for Systems that are also GestureListeners. It gives basic
  * implementation for GestureListener methods to keep the concrete classes slim.
  */
-
 public abstract class AGestureListenerSystem extends EntitySystem implements GestureListener {
 
     public AGestureListenerSystem ( Aspect aspect ) {

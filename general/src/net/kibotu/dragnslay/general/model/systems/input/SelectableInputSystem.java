@@ -1,4 +1,4 @@
-package net.kibotu.dragnslay.general.model.systems;
+package net.kibotu.dragnslay.general.model.systems.input;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -6,6 +6,9 @@ import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -14,17 +17,16 @@ import net.kibotu.dragnslay.general.model.components.DisplayComponent;
 import net.kibotu.dragnslay.general.model.components.SelectableComponent;
 import net.kibotu.dragnslay.general.model.components.TransformationComponent;
 import net.kibotu.logger.Logger;
-
-import static net.kibotu.dragnslay.general.DragnSlay.perspectiveCamera;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * TODO insert description
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */
-public class ObjectInputSystem extends AGestureListenerSystem {
+public class SelectableInputSystem extends AGestureListenerSystem {
 
-    private static final String TAG = ObjectInputSystem.class.getSimpleName();
+    private static final String TAG = SelectableInputSystem.class.getSimpleName();
     @Mapper
     ComponentMapper<TransformationComponent> transformationCmp;
     @Mapper
@@ -34,11 +36,14 @@ public class ObjectInputSystem extends AGestureListenerSystem {
     private Vector3 unprojected;
     private boolean isTapped;
     private Ray ray;
+    private Camera camera;
 
-    public ObjectInputSystem () {
+    public SelectableInputSystem ( @NotNull Camera camera ) {
         super( Aspect.getAspectForAll( TransformationComponent.class, DisplayComponent.class, SelectableComponent.class ) );
         isTapped = false;
         unprojected = new Vector3();
+        this.camera = camera;
+        ( ( InputMultiplexer ) Gdx.input.getInputProcessor() ).addProcessor( new GestureDetector( this ) );
     }
 
     @Override
@@ -76,8 +81,12 @@ public class ObjectInputSystem extends AGestureListenerSystem {
         isTapped = true;
 
         // TODO unproject
-//        perspectiveCamera.unproject( unprojected.set( x, y, 0 ) );
-        ray = perspectiveCamera.getPickRay( x, y, 0f, 0f, ( float ) Gdx.graphics.getWidth(), ( float ) Gdx.graphics.getHeight() );
+        camera.unproject( unprojected.set( x, y, 0 ) );
+        ray = camera.getPickRay( x, y, 0f, 0f, ( float ) Gdx.graphics.getWidth(), ( float ) Gdx.graphics.getHeight() );
+
+        Logger.v( TAG, "tapped window at [" + x + "|" + y + "]" );
+        Logger.v( TAG, "tapped world  at [" + unprojected.x + "|" + unprojected.x + "|" + unprojected.z + "]" );
+
         return true;
     }
 }

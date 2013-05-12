@@ -4,10 +4,10 @@ import com.artemis.Component;
 import com.badlogic.gdx.math.Vector3;
 import org.jetbrains.annotations.NotNull;
 
-
 /**
- * This component stores the current position for the given entity for movable objects.
- * These are Game World coordinates.
+ * POD for old old position, used for interpolated movement
+ *
+ * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */
 public class MovablePositionComponent extends Component {
 

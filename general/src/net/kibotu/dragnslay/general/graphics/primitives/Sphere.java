@@ -24,7 +24,7 @@ public class Sphere extends APrimitive {
         this.radius = radius;
         this.stacks = stacks;
         this.slices = slices;
-        buildMesh( ( stacks + 1 ) * ( slices + 1 ), ( stacks * slices * 2 ) * 3 );
+        buildMesh( ( stacks + 1 ) * ( slices + 1 ), stacks * slices * 2 * 3 ); // 2 because we build quads; 3 because we have 3 indices per face
     }
 
     public Sphere () {

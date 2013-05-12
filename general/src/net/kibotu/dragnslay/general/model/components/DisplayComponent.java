@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 /**
- * TODO insert description
+ * POD for mesh, visibility and used shader
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */

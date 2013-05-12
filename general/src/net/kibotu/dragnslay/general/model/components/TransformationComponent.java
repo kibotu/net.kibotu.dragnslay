@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 
 /**
- * TODO insert description
+ * POD for transformation state of an entity
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */

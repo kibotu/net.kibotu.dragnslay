@@ -5,21 +5,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.collision.BoundingBox;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
-import net.kibotu.dragnslay.general.graphics.scene.MeshNode;
-import net.kibotu.dragnslay.general.graphics.scene.RootNode;
 import net.kibotu.dragnslay.general.model.EntityBuilder;
-import net.kibotu.dragnslay.general.model.systems.ObjectInputSystem;
+import net.kibotu.dragnslay.general.model.systems.CameraRenderSystem;
 import net.kibotu.dragnslay.general.model.systems.StillModelRenderSystem;
+import net.kibotu.dragnslay.general.model.systems.input.CameraInputSystem;
+import net.kibotu.dragnslay.general.model.systems.input.SelectableInputSystem;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import static net.kibotu.dragnslay.general.DragnSlay.*;
+import static net.kibotu.dragnslay.general.DragnSlay.light;
+import static net.kibotu.dragnslay.general.DragnSlay.phong;
 
 /**
  * TODO insert description
@@ -29,11 +29,8 @@ import static net.kibotu.dragnslay.general.DragnSlay.*;
 public class GameScreen implements Screen {
 
     private static final String TAG = GameScreen.class.getSimpleName();
-    private MeshNode razor;
     private World world;
     private DragnSlay gameContext;
-    private RootNode scene;
-    private BoundingBox razorBox;
 
     public GameScreen ( @NotNull final DragnSlay gameContext ) {
         this.gameContext = gameContext;
@@ -42,32 +39,33 @@ public class GameScreen implements Screen {
         // set default gl state
         initGL();
 
-        ObjectInputSystem objectInputSystem = new ObjectInputSystem();
-
-        // input
-        InputMultiplexer multiplexer = new InputMultiplexer();
-//        multiplexer.addProcessor(new GestureDetector(hudInputSystem));
-        multiplexer.addProcessor( new GestureDetector( objectInputSystem ) );
-        Gdx.input.setInputProcessor( multiplexer );
+        // init input multiplexer
+        Gdx.input.setInputProcessor( new InputMultiplexer() );
 
         // create world
         world = new World();
+        PerspectiveCamera camera = new PerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
 
         // init entity builder
         EntityBuilder.init( world );
 
-        // add systems
+        // add systems !important ORDER MATTERS!
 //        world.setSystem(hudInputSystem);
-        world.setSystem( objectInputSystem );
+        world.setSystem( new CameraInputSystem() );
+        world.setSystem( new SelectableInputSystem( camera ) );
+        world.setSystem( new CameraRenderSystem() );
         world.setSystem( new StillModelRenderSystem() );
         world.initialize();
+
+        // add camera
+        world.addEntity( EntityBuilder.createCamera( camera ) );
 
         // assemble world
         createEntities();
     }
 
     private void createEntities () {
-        world.addEntity( EntityBuilder.createSpaceship() );
+        world.addEntity( EntityBuilder.createPlanet() );
     }
 
     private void initGL () {
@@ -86,11 +84,6 @@ public class GameScreen implements Screen {
     @Override
     public void render ( final float delta ) {
         phong.begin();
-
-        // camera
-        perspectiveCamera.clearScreen();
-        perspectiveCamera.update();
-        perspectiveCamera.apply( phong );
 
         // light
         light.apply( phong );

@@ -34,7 +34,7 @@ public class StillModelRenderSystem extends EntitySystem {
         for ( int i = 0; i < entities.size(); ++ i ) {
             e = entities.get( i );
             dC = displayCmp.get( e );
-            if ( ! dC.isVisible ) return;
+            if ( ! dC.isVisible ) break;
             tC = transformationCmp.get( e );
             dC.program.setUniformMatrix( u_ModelView, tC.combinedTransformation );
             dC.model.render( dC.program );
