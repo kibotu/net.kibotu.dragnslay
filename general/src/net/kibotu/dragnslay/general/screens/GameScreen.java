@@ -2,20 +2,19 @@ package net.kibotu.dragnslay.general.screens;
 
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import com.badlogic.gdx.math.collision.Ray;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.graphics.scene.MeshNode;
 import net.kibotu.dragnslay.general.graphics.scene.RootNode;
 import net.kibotu.dragnslay.general.model.EntityBuilder;
+import net.kibotu.dragnslay.general.model.systems.ObjectInputSystem;
 import net.kibotu.dragnslay.general.model.systems.StillModelRenderSystem;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +26,7 @@ import static net.kibotu.dragnslay.general.DragnSlay.*;
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */
-public class GameScreen implements Screen, GestureDetector.GestureListener {
+public class GameScreen implements Screen {
 
     private static final String TAG = GameScreen.class.getSimpleName();
     private MeshNode razor;
@@ -43,34 +42,32 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
         // set default gl state
         initGL();
 
-//        Logger.v( TAG, "compassAvail: " + Gdx.input.isPeripheralAvailable( Input.Peripheral.Compass ) );
+        ObjectInputSystem objectInputSystem = new ObjectInputSystem();
 
-        Gdx.input.setInputProcessor( new GestureDetector( this ) );
+        // input
+        InputMultiplexer multiplexer = new InputMultiplexer();
+//        multiplexer.addProcessor(new GestureDetector(hudInputSystem));
+        multiplexer.addProcessor( new GestureDetector( objectInputSystem ) );
+        Gdx.input.setInputProcessor( multiplexer );
 
+        // create world
         world = new World();
+
+        // init entity builder
         EntityBuilder.init( world );
 
+        // add systems
 //        world.setSystem(hudInputSystem);
-//        world.setSystem(objectInputSystem);
-//        world.setSystem(mapInputSystem);
-//        world.setSystem(new AnimationSystem());
-//        world.setSystem(new BackgroundRenderingSystem(batch, camera));
-//        world.setSystem(new StaticImageRenderingSystem(batch, camera));
-//        world.setSystem(new AnimationRenderingSystem(batch, camera));
+        world.setSystem( objectInputSystem );
         world.setSystem( new StillModelRenderSystem() );
         world.initialize();
 
+        // assemble world
         createEntities();
-//        createEntities2();
     }
 
     private void createEntities () {
         world.addEntity( EntityBuilder.createSpaceship() );
-    }
-
-    private void createEntities2 () {
-        razorBox = new BoundingBox();
-        razor.model.getBoundingBox( razorBox );
     }
 
     private void initGL () {
@@ -102,9 +99,6 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
         world.process();
 
 //        razor.getRotation().setEulerAngles( Gdx.input.getPitch(), Gdx.input.getRoll(), Gdx.input.getAzimuth() );
-
-        // scene
-//        scene.render( phong );
 
         phong.end();
     }
@@ -141,42 +135,5 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
     public void dispose () {
         // gets called only manually
         Logger.v( TAG, "dispose" );
-    }
-
-    @Override
-    public boolean touchDown ( final float x, final float y, final int pointer, final int button ) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean tap ( final float x, final float y, final int count, final int button ) {
-        Ray ray = perspectiveCamera.getPickRay( x, y, 0f, 0f, ( float ) Gdx.graphics.getWidth(), ( float ) Gdx.graphics.getHeight() );
-        Logger.v( TAG, "intersects: " + Intersector.intersectRayBoundsFast( ray, razorBox ) );
-        return false;
-    }
-
-    @Override
-    public boolean longPress ( final float x, final float y ) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean fling ( final float velocityX, final float velocityY, final int button ) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean pan ( final float x, final float y, final float deltaX, final float deltaY ) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean zoom ( final float initialDistance, final float distance ) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean pinch ( final Vector2 initialPointer1, final Vector2 initialPointer2, final Vector2 pointer1, final Vector2 pointer2 ) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
