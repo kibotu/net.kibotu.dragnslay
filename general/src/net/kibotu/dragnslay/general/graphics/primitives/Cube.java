@@ -1,32 +1,20 @@
 package net.kibotu.dragnslay.general.graphics.primitives;
 
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.g3d.materials.Material;
-import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
-import com.badlogic.gdx.graphics.g3d.model.still.StillSubMesh;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * TODO insert description
  *
  * @author <a href="mailto:jan.rabe@wooga.net">Jan Rabe</a>
  */
-public class Cube {
-
-    private static final String TAG = Cube.class.getSimpleName();
-    public StillModel model;
+public class Cube extends APrimitive {
 
     public Cube () {
-        create();
+        super( 24, 12 * 3 );
     }
 
-    private void create () {
-
-        int maxVertices = 24;
-        int faces = 12;
-        int maxIndices = faces * 3;
-
-        VertexHelper helper = new VertexHelper( maxVertices, maxIndices );
+    @Override
+    protected void create ( @NotNull final VertexHelper helper ) {
         float c = 1f;
 
         // build interleaved vertices
@@ -68,14 +56,5 @@ public class Cube {
         helper.addFace( 16, 18, 19 );
         helper.addFace( 20, 21, 22 );
         helper.addFace( 20, 22, 23 );
-
-        // actual mesh
-        Mesh mesh = new Mesh( true, maxVertices, maxIndices, VertexHelper.getVertexAttributes() );
-        mesh.setVertices( helper.finalVerts );
-        mesh.setIndices( helper.finalIndices );
-
-        // add mesh to model
-        model = new StillModel( new StillSubMesh( TAG, mesh, GL10.GL_TRIANGLES ) );
-        model.setMaterial( new Material( TAG ) );
     }
 }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Intersector;
@@ -15,7 +14,7 @@ import com.badlogic.gdx.math.collision.Ray;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
-import net.kibotu.dragnslay.general.graphics.primitives.Cube;
+import net.kibotu.dragnslay.general.graphics.primitives.Sphere;
 import net.kibotu.dragnslay.general.graphics.scene.MeshNode;
 import net.kibotu.dragnslay.general.graphics.scene.RootNode;
 import net.kibotu.logger.Logger;
@@ -66,8 +65,12 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
         scene = new RootNode();
 //        razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
 
-        Cube cube = new Cube();
-        razor = new MeshNode( cube.model, Assets.manager.get( Constants.TEXTURE_CRATE, Texture.class ) );
+//        Cube cube = new Cube();
+//        razor = new MeshNode( cube.model,
+//Assets.manager.get( Constants.TEXTURE_CRATE, Texture.class ) );
+
+        Sphere sphere = new Sphere();
+        razor = new MeshNode( sphere.model, Assets.manager.get( Constants.TEXTURE_EARTH, Texture.class ) );
 
         scene.addChild( razor );
         razorBox = new BoundingBox();
