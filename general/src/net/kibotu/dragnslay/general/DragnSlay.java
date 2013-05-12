@@ -2,13 +2,11 @@ package net.kibotu.dragnslay.general;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.graphics.Light;
 import net.kibotu.dragnslay.general.graphics.camera.GLESOrthographicCamera;
-import net.kibotu.dragnslay.general.graphics.camera.GLESPerspectiveCamera;
 import net.kibotu.dragnslay.general.screens.LoadingScreen;
 import net.kibotu.dragnslay.general.screens.SplashScreen;
 import net.kibotu.logger.Logger;
@@ -29,7 +27,6 @@ public class DragnSlay extends Game {
     public static ShaderProgram libgdx;
     public static ShaderProgram phong;
     public static GLESOrthographicCamera orthographicCamera;
-    public static GLESPerspectiveCamera perspectiveCamera;
     public static Light light;
     public static LoadingScreen loadingScreen;
 
@@ -50,17 +47,8 @@ public class DragnSlay extends Game {
     }
 
     private void initCameras () {
-
         // orthographic camera for sprite batch
         orthographicCamera = new GLESOrthographicCamera();
-
-        // camera
-        perspectiveCamera = new GLESPerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-        perspectiveCamera.position.set( 0, 0, 3 );
-        perspectiveCamera.direction.set( 0, 0, - 1 );
-        perspectiveCamera.near = 0.1f;
-        perspectiveCamera.far = 1000f;
-        perspectiveCamera.setBackground( Color.DARK_GRAY );
     }
 
     @Override
