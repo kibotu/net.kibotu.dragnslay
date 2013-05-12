@@ -1,6 +1,8 @@
 package net.kibotu.dragnslay.general.model.components;
 
 import com.artemis.Component;
+import com.badlogic.gdx.math.Vector3;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -9,17 +11,13 @@ import com.artemis.Component;
  */
 public class MovablePosition extends Component {
 
-    public float x;
-    public float y;
-    public float oldX;
-    public float oldY;
-    public float startTime = 0;
-    public float currentTime = 0;
+    public Vector3 oldPosition;
+    public float startTime;
+    public float currentTime;
 
-    public MovablePosition ( float x, float y ) {
-        this.x = x;
-        this.y = y;
-        this.oldX = x;
-        this.oldY = y;
+    public MovableTransformation ( @NotNull final Vector3 position ) {
+        this.oldPosition = new Vector3( position );
+        startTime = 0;
+        currentTime = 0;
     }
 }
