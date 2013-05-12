@@ -4,7 +4,6 @@ import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Intersector;
@@ -14,9 +13,10 @@ import com.badlogic.gdx.math.collision.Ray;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
-import net.kibotu.dragnslay.general.graphics.primitives.Sphere;
 import net.kibotu.dragnslay.general.graphics.scene.MeshNode;
 import net.kibotu.dragnslay.general.graphics.scene.RootNode;
+import net.kibotu.dragnslay.general.model.EntityBuilder;
+import net.kibotu.dragnslay.general.model.systems.StillModelRenderSystem;
 import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,6 +48,7 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
         Gdx.input.setInputProcessor( new GestureDetector( this ) );
 
         world = new World();
+        EntityBuilder.init( world );
 
 //        world.setSystem(hudInputSystem);
 //        world.setSystem(objectInputSystem);
@@ -56,23 +57,18 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
 //        world.setSystem(new BackgroundRenderingSystem(batch, camera));
 //        world.setSystem(new StaticImageRenderingSystem(batch, camera));
 //        world.setSystem(new AnimationRenderingSystem(batch, camera));
+        world.setSystem( new StillModelRenderSystem() );
         world.initialize();
 
         createEntities();
+//        createEntities2();
     }
 
     private void createEntities () {
-        scene = new RootNode();
-//        razor = new MeshNode( Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ), Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ) );
+        world.addEntity( EntityBuilder.createSpaceship() );
+    }
 
-//        Cube cube = new Cube();
-//        razor = new MeshNode( cube.model,
-//Assets.manager.get( Constants.TEXTURE_CRATE, Texture.class ) );
-
-        Sphere sphere = new Sphere();
-        razor = new MeshNode( sphere.model, Assets.manager.get( Constants.TEXTURE_EARTH, Texture.class ) );
-
-        scene.addChild( razor );
+    private void createEntities2 () {
         razorBox = new BoundingBox();
         razor.model.getBoundingBox( razorBox );
     }
@@ -105,10 +101,10 @@ public class GameScreen implements Screen, GestureDetector.GestureListener {
         world.setDelta( delta );
         world.process();
 
-        razor.getRotation().setEulerAngles( Gdx.input.getPitch(), Gdx.input.getRoll(), Gdx.input.getAzimuth() );
+//        razor.getRotation().setEulerAngles( Gdx.input.getPitch(), Gdx.input.getRoll(), Gdx.input.getAzimuth() );
 
         // scene
-        scene.render( phong );
+//        scene.render( phong );
 
         phong.end();
     }
