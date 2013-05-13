@@ -7,14 +7,13 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.flurry.org.apache.avro.reflect.Nullable;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.graphics.primitives.Cube;
 import net.kibotu.dragnslay.general.graphics.primitives.Sphere;
-import net.kibotu.dragnslay.general.model.components.CameraComponent;
-import net.kibotu.dragnslay.general.model.components.DisplayComponent;
-import net.kibotu.dragnslay.general.model.components.SelectableComponent;
-import net.kibotu.dragnslay.general.model.components.TransformationComponent;
+import net.kibotu.dragnslay.general.model.components.*;
+import net.kibotu.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -24,7 +23,9 @@ import org.jetbrains.annotations.NotNull;
  */
 final public class EntityBuilder {
 
-    private static World world;
+    private static final String TAG = EntityBuilder.class.getSimpleName();
+    @Nullable
+    public static World world;
 
     private EntityBuilder () {
     }
@@ -34,6 +35,7 @@ final public class EntityBuilder {
     }
 
     public static Entity createPlanet () {
+        Logger.v( TAG, "create planet" );
         Entity entity = world.createEntity();
         entity.addComponent( new TransformationComponent() );
         Sphere sphere = new Sphere();
@@ -41,10 +43,12 @@ final public class EntityBuilder {
                 Assets.manager.get( Constants.TEXTURE_EARTH, Texture.class ),
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ) ) );
         entity.addComponent( new SelectableComponent() );
+        entity.addComponent( new SpawningComponent( 1, 5, 5000 ) );
         return entity;
     }
 
     public static Entity createSpaceship () {
+        Logger.v( TAG, "create spaceship" );
         Entity entity = world.createEntity();
         entity.addComponent( new TransformationComponent() );
         entity.addComponent( new DisplayComponent(
@@ -55,6 +59,7 @@ final public class EntityBuilder {
     }
 
     public static Entity createPlaceholder () {
+        Logger.v( TAG, "create placeholder" );
         Entity entity = world.createEntity();
         entity.addComponent( new TransformationComponent() );
         Cube cube = new Cube();
@@ -65,6 +70,7 @@ final public class EntityBuilder {
     }
 
     public static Entity createCamera ( final PerspectiveCamera camera ) {
+        Logger.v( TAG, "create camera" );
         Entity entity = world.createEntity();
         camera.position.set( 0, 0, 7 );
         camera.direction.set( 0, 0, - 1 );

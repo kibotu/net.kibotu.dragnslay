@@ -12,6 +12,7 @@ import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.model.EntityBuilder;
 import net.kibotu.dragnslay.general.model.systems.CameraRenderSystem;
+import net.kibotu.dragnslay.general.model.systems.SpawningSystem;
 import net.kibotu.dragnslay.general.model.systems.StillModelRenderSystem;
 import net.kibotu.dragnslay.general.model.systems.input.CameraInputSystem;
 import net.kibotu.dragnslay.general.model.systems.input.SelectableInputSystem;
@@ -61,6 +62,7 @@ public class GameScreen implements Screen {
         world.setSystem( new SelectableInputSystem( camera ) );
         world.setSystem( new CameraRenderSystem() );
         world.setSystem( new StillModelRenderSystem() );
+        world.setSystem( new SpawningSystem() );
         world.initialize();
 
         // add camera

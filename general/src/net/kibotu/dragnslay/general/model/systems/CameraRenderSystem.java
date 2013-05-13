@@ -43,7 +43,6 @@ public class CameraRenderSystem extends EntitySystem {
             // send transformation matrix to shader
             cC.program.setUniformMatrix( u_ProjectionWorldView, cC.camera.combined );
         }
-
     }
 
     @Override
