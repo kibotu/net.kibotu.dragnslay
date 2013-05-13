@@ -31,7 +31,7 @@ public class PhongMaterial extends Material {
         super( name );
     }
 
-    public static PhongMaterial createDefaultMaterial() {
+    public static PhongMaterial createDefaultMaterial () {
         if ( defaultMaterial != null ) return defaultMaterial;
         defaultMaterial = new PhongMaterial( "white" );
         defaultMaterial.Ambient = new Color( 0.1f, 0.1f, 0.1f, 1f );
@@ -42,7 +42,7 @@ public class PhongMaterial extends Material {
         return defaultMaterial;
     }
 
-    public void apply(@NotNull ShaderProgram program) {
+    public void apply ( @NotNull ShaderProgram program ) {
         program.setUniformf( PHONG_MATERIAL + ".ambient", Ambient.r, Ambient.g, Ambient.b, Ambient.a );
         program.setUniformf( PHONG_MATERIAL + ".diffuse", Diffuse.r, Diffuse.g, Diffuse.b, Diffuse.a );
         program.setUniformf( PHONG_MATERIAL + ".specular", Specular.r, Specular.g, Specular.b, Specular.a );

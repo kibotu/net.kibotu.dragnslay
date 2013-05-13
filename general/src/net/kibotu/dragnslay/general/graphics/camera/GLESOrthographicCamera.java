@@ -24,11 +24,11 @@ public class GLESOrthographicCamera extends OrthographicCamera {
         Gdx.graphics.getGL20().glClear( GL20.GL_DEPTH_BUFFER_BIT | GL20.GL_COLOR_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT );
     }
 
-    public Color getBackground() {
+    public Color getBackground () {
         return background;
     }
 
-    public void setBackground(@NotNull Color background) {
+    public void setBackground ( @NotNull Color background ) {
         this.background = background;
     }
 }

@@ -29,12 +29,13 @@ public class SpawningSystem extends EntitySystem {
     protected void processEntities ( final ImmutableBag<Entity> entities ) {
         Entity e;
         SpawningComponent sC;
+        final long currentTime = System.currentTimeMillis();
         for ( int i = 0; i < entities.size(); ++ i ) {
             e = entities.get( i );
             sC = spawnCmp.get( e );
-            if ( sC.currentSpawns >= sC.maxSpawnAmount  ) break;  // TODO rethink current spawn amount source
-            sC.delta += System.currentTimeMillis() - sC.startTime;
-            sC.startTime = System.currentTimeMillis();
+            if ( sC.currentSpawns >= sC.maxSpawnAmount ) break;  // TODO rethink current spawn amount source
+            sC.delta += currentTime - sC.startTime;
+            sC.startTime = currentTime;
             long amount = sC.delta / sC.interval;
             if ( amount > 0 ) {
                 sC.delta -= amount * sC.interval;
