@@ -50,7 +50,7 @@ public class CameraInputSystem extends AGestureListenerSystem {
 
     @Override
     public boolean pan ( float x, float y, float deltaX, float deltaY ) {
-        Logger.v( TAG, "pan gesture " + ( ( - deltaX / x ) * Gdx.graphics.getDeltaTime() ) + " " + ( ( deltaY / y ) * Gdx.graphics.getDeltaTime() ) );
+        Logger.v( TAG, "pan gesture " );
         camera.translate( ( - deltaX / x ) * Gdx.graphics.getDeltaTime() * panSpeed, ( deltaY / y ) * Gdx.graphics.getDeltaTime() * panSpeed, 0 );
         return true;
     }
@@ -64,7 +64,7 @@ public class CameraInputSystem extends AGestureListenerSystem {
 
     @Override
     public boolean zoom ( float initialDistance, float distance ) {
-        Logger.v( TAG, "zoom gesture  " + ( 1 - distance / initialDistance ) );
+        Logger.v( TAG, "zoom gesture  " );
         return zoomDepth( initialDistance, distance );
     }
 

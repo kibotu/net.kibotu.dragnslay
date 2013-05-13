@@ -17,6 +17,10 @@ public class Light {
     public boolean isOn;
     protected String name;
     private PhongMaterial material;
+    private String positionName;
+    private String isOnName;
+    private String typeName;
+    private String directionName;
 
     public Light ( String name, Vector3 position, Vector3 direction, Type type, boolean isOn ) {
         this.name = name;
@@ -25,6 +29,11 @@ public class Light {
         this.type = type;
         this.isOn = isOn;
         this.material = PhongMaterial.createDefaultMaterial();
+
+        positionName = name + ".position";
+        isOnName = name + ".isOn";
+        typeName = name + ".type";
+        directionName = name + ".direction";
     }
 
     public Light ( String name, float posX, float posY, float posZ, float dirX, float dirY, float dirZ ) {
@@ -36,11 +45,11 @@ public class Light {
     }
 
     public void apply ( @NotNull ShaderProgram program ) {
-        program.setUniformf( name + ".position", position.x, position.y, position.z );
+        program.setUniformf( positionName, position.x, position.y, position.z );
 
         switch ( type ) {
             case u_DirectionalLight:
-                program.setUniformf( name + ".direction", direction.x, direction.y, direction.z );
+                program.setUniformf( directionName, direction.x, direction.y, direction.z );
                 break;
             case u_PointLight:
                 break; // TODO implement me
@@ -48,8 +57,8 @@ public class Light {
             case u_SpotLight:
                 break; // TODO implement me
         }
-        program.setUniformi( name + ".isOn", isOn ? 1 : 0 );
-        program.setUniformi( name + ".type", Type.u_DirectionalLight.ordinal() );
+        program.setUniformi( isOnName, isOn ? 1 : 0 );
+        program.setUniformi( typeName, Type.u_DirectionalLight.ordinal() );
         material.apply( program );
     }
 
