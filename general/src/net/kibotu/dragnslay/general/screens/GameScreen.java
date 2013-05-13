@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
 
         // add systems !important ORDER MATTERS!
 //        world.setSystem(hudInputSystem);
-        world.setSystem( new CameraInputSystem() );
+        world.setSystem( new CameraInputSystem( camera ) );
         world.setSystem( new SelectableInputSystem( camera ) );
         world.setSystem( new CameraRenderSystem() );
         world.setSystem( new StillModelRenderSystem() );
