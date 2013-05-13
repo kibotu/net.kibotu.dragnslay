@@ -19,5 +19,7 @@ public class MovablePositionComponent extends Component {
         this.oldPosition = new Vector3( position );
         startTime = 0;
         currentTime = 0;
+
+
     }
 }

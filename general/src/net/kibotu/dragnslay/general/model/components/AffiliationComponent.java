@@ -2,6 +2,7 @@ package net.kibotu.dragnslay.general.model.components;
 
 import com.artemis.Component;
 import com.artemis.Entity;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * POD for parent entity
@@ -10,5 +11,9 @@ import com.artemis.Entity;
  */
 public class AffiliationComponent extends Component {
 
-    private Entity entity;
+    public Entity entity;
+
+    public AffiliationComponent ( @NotNull final Entity entity ) {
+        this.entity = entity;
+    }
 }

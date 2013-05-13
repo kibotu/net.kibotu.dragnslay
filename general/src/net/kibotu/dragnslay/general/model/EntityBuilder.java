@@ -43,14 +43,16 @@ final public class EntityBuilder {
                 Assets.manager.get( Constants.TEXTURE_EARTH, Texture.class ),
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ) ) );
         entity.addComponent( new SelectableComponent() );
-        entity.addComponent( new SpawningComponent( 1, 5, 5000 ) );
+        entity.addComponent( new SpawningComponent( 1, 20, 200 ) );
         return entity;
     }
 
     public static Entity createSpaceship () {
         Entity entity = world.createEntity();
         Logger.v( TAG, "create spaceship " + entity.getUuid() );
-        entity.addComponent( new TransformationComponent() );
+        TransformationComponent tC = new TransformationComponent();
+        tC.scaling.scl( 0.10f );
+        entity.addComponent( tC );
         entity.addComponent( new DisplayComponent(
                 Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ),
                 Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ),
@@ -78,7 +80,7 @@ final public class EntityBuilder {
         camera.far = 1000f;
         entity.addComponent( new CameraComponent( camera,
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ),
-                Color.DARK_GRAY ) );
+                Color.BLACK ) );
         return entity;
     }
 }

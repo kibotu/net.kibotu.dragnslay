@@ -1,5 +1,6 @@
 package net.kibotu.dragnslay.general.screens;
 
+import com.artemis.Entity;
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -11,10 +12,8 @@ import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.DragnSlay;
 import net.kibotu.dragnslay.general.assets.Assets;
 import net.kibotu.dragnslay.general.model.EntityBuilder;
-import net.kibotu.dragnslay.general.model.systems.CameraRenderSystem;
-import net.kibotu.dragnslay.general.model.systems.SpawningSystem;
-import net.kibotu.dragnslay.general.model.systems.StillModelRenderSystem;
-import net.kibotu.dragnslay.general.model.systems.TransformationSystem;
+import net.kibotu.dragnslay.general.model.components.TransformationComponent;
+import net.kibotu.dragnslay.general.model.systems.*;
 import net.kibotu.dragnslay.general.model.systems.input.CameraInputSystem;
 import net.kibotu.dragnslay.general.model.systems.input.SelectableInputSystem;
 import net.kibotu.logger.Logger;
@@ -65,6 +64,7 @@ public class GameScreen implements Screen {
         world.setSystem( new StillModelRenderSystem() );
         world.setSystem( new TransformationSystem() );
         world.setSystem( new SpawningSystem() );
+        world.setSystem( new SpaceShipIdleSystem() );
         world.initialize();
 
         // add camera
@@ -75,7 +75,13 @@ public class GameScreen implements Screen {
     }
 
     private void createEntities () {
-        world.addEntity( EntityBuilder.createPlanet() );
+        Entity p1 = EntityBuilder.createPlanet();
+        p1.getComponent( TransformationComponent.class ).position.set( - 5, 5, 0 );
+        world.addEntity( p1 );
+
+        Entity p2 = EntityBuilder.createPlanet();
+        p2.getComponent( TransformationComponent.class ).position.set( 5, -5, 0 );
+        world.addEntity( p2 );
     }
 
     private void initGL () {

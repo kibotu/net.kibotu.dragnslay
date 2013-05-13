@@ -37,12 +37,15 @@ public class TransformationSystem extends EntitySystem {
         for ( int i = 0; i < entities.size(); ++ i ) {
             e = entities.get( i );
             tC = transformationCmp.get( e );
+//            if ( ! tC.combinedTransformationIsDirty ) break;
             // M = S * R * T
             scaleMat.setToScaling( tC.scaling );
             transMat.setTranslation( tC.position );
-//        combined.setToTranslationAndScaling(position.x, position.y, position.z, scaling.x, scaling.y, scaling.z);
+            tC.combinedTransformation.setToTranslationAndScaling( tC.position.x, tC.position.y, tC.position.z, tC.scaling.x, tC.scaling.y, tC.scaling.z);
             rotMat.set( tC.rotation.nor() );
-            tC.combinedTransformation.set( rotMat.mul( scaleMat.mul( transMat ) ) );
+//            tC.combinedTransformation.set( rotMat.mul( scaleMat.mul( transMat ) ) );
+            tC.combinedTransformation.mul( rotMat );
+            tC.combinedTransformationIsDirty = false;
         }
     }
 

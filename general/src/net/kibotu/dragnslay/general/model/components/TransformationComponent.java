@@ -16,11 +16,13 @@ public class TransformationComponent extends Component {
     public Vector3 position;
     public Vector3 scaling;
     public Quaternion rotation;
+    public boolean combinedTransformationIsDirty;
 
     public TransformationComponent () {
         combinedTransformation = new Matrix4();
         position = new Vector3();
         scaling = new Vector3( 1, 1, 1 );
         rotation = new Quaternion();
+        combinedTransformationIsDirty = true;
     }
 }

@@ -7,8 +7,9 @@ import com.artemis.EntitySystem;
 import com.artemis.annotations.Mapper;
 import com.artemis.utils.ImmutableBag;
 import net.kibotu.dragnslay.general.model.EntityBuilder;
+import net.kibotu.dragnslay.general.model.components.AffiliationComponent;
 import net.kibotu.dragnslay.general.model.components.SpawningComponent;
-import net.kibotu.dragnslay.general.model.components.TransformationComponent;
+import net.kibotu.dragnslay.general.model.components.states.SpaceShipIdleComponent;
 
 /**
  * TODO insert description
@@ -41,8 +42,8 @@ public class SpawningSystem extends EntitySystem {
                 sC.delta -= amount * sC.interval;
                 for ( int j = 0; j < amount; ++ j ) {
                     Entity newEntity = EntityBuilder.createSpaceship();
-                    TransformationComponent tC = newEntity.getComponent( TransformationComponent.class );
-                    tC.position.set( 2, 0, 0 );
+                    newEntity.addComponent( new AffiliationComponent( e ) );
+                    newEntity.addComponent( new SpaceShipIdleComponent( 4, 2 ) );
                     EntityBuilder.world.addEntity( newEntity );
                     sC.currentSpawns++;
                 }
