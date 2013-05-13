@@ -35,8 +35,8 @@ final public class EntityBuilder {
     }
 
     public static Entity createPlanet () {
-        Logger.v( TAG, "create planet" );
         Entity entity = world.createEntity();
+        Logger.v( TAG, "create planet " + entity.getUuid() );
         entity.addComponent( new TransformationComponent() );
         Sphere sphere = new Sphere();
         entity.addComponent( new DisplayComponent( sphere.model,
@@ -48,8 +48,8 @@ final public class EntityBuilder {
     }
 
     public static Entity createSpaceship () {
-        Logger.v( TAG, "create spaceship" );
         Entity entity = world.createEntity();
+        Logger.v( TAG, "create spaceship " + entity.getUuid() );
         entity.addComponent( new TransformationComponent() );
         entity.addComponent( new DisplayComponent(
                 Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ),
@@ -59,8 +59,8 @@ final public class EntityBuilder {
     }
 
     public static Entity createPlaceholder () {
-        Logger.v( TAG, "create placeholder" );
         Entity entity = world.createEntity();
+        Logger.v( TAG, "create placeholder " + entity.getUuid() );
         entity.addComponent( new TransformationComponent() );
         Cube cube = new Cube();
         entity.addComponent( new DisplayComponent( cube.model,
@@ -70,8 +70,8 @@ final public class EntityBuilder {
     }
 
     public static Entity createCamera ( final PerspectiveCamera camera ) {
-        Logger.v( TAG, "create camera" );
         Entity entity = world.createEntity();
+        Logger.v( TAG, "create camera " + entity.getUuid() );
         camera.position.set( 0, 0, 7 );
         camera.direction.set( 0, 0, - 1 );
         camera.near = 0.1f;

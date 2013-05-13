@@ -24,6 +24,7 @@ public class SpawningComponent extends Component {
         this.spawns = spawns;
         this.maxSpawnAmount = maxSpawnAmount;
         this.interval = interval;
+        currentSpawns = 0;
         startTime = System.currentTimeMillis();
         delta = 0;
     }
