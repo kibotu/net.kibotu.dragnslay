@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.utils.Array;
 import net.kibotu.dragnslay.general.model.components.DisplayComponent;
 import net.kibotu.dragnslay.general.model.components.SelectableComponent;
 import net.kibotu.dragnslay.general.model.components.TransformationComponent;
@@ -37,6 +38,7 @@ public class SelectableInputSystem extends AGestureListenerSystem {
     private boolean isTapped;
     private Ray ray;
     private Camera camera;
+    private Array<Entity> selected;
 
     public SelectableInputSystem ( @NotNull Camera camera ) {
         super( Aspect.getAspectForAll( TransformationComponent.class, DisplayComponent.class, SelectableComponent.class ) );
@@ -44,6 +46,7 @@ public class SelectableInputSystem extends AGestureListenerSystem {
         unprojected = new Vector3();
         this.camera = camera;
         ( ( InputMultiplexer ) Gdx.input.getInputProcessor() ).addProcessor( new GestureDetector( this ) );
+        selected = new Array<>();
     }
 
     @Override
@@ -69,8 +72,12 @@ public class SelectableInputSystem extends AGestureListenerSystem {
             // TODO transform only when dirty
             aabb.mul( tC.combinedTransformation );
 
-            // check intersection
-            Logger.v( TAG, "intersects: " + Intersector.intersectRayBoundsFast( ray, aabb ) );
+            // add to selected list, or deselect 2nd tap
+            if ( Intersector.intersectRayBoundsFast( ray, aabb ) ) {  // check intersection
+                if ( ! selected.contains( e, true ) ) selected.add( e );
+                else selected.removeValue( e, true );
+                Logger.v( TAG, "selected: " + selected.size );
+            }
 
             // TODO do somethhing fancy when clicked
         }
@@ -79,14 +86,7 @@ public class SelectableInputSystem extends AGestureListenerSystem {
     @Override
     public boolean tap ( float x, float y, int count, int button ) {
         isTapped = true;
-
-        // TODO unproject
-        camera.unproject( unprojected.set( x, y, 0 ) );
         ray = camera.getPickRay( x, y, 0f, 0f, ( float ) Gdx.graphics.getWidth(), ( float ) Gdx.graphics.getHeight() );
-
-        Logger.v( TAG, "tapped window at [" + x + "|" + y + "]" );
-        Logger.v( TAG, "tapped world  at [" + unprojected.x + "|" + unprojected.x + "|" + unprojected.z + "]" );
-
         return true;
     }
 }

@@ -93,10 +93,10 @@ public class GameScreen implements Screen {
     }
 
     private void initGL () {
-        Gdx.graphics.getGL20().glEnable( GL20.GL_BLEND );
-        Gdx.graphics.getGL20().glEnable( GL20.GL_DITHER );
-        Gdx.graphics.getGL20().glEnable( GL20.GL_DEPTH_TEST );
-        Gdx.graphics.getGL20().glDisable( GL20.GL_CULL_FACE );   // important! required for spritebatch
+        Gdx.graphics.getGL20().glDisable( GL20.GL_BLEND );
+        Gdx.graphics.getGL20().glDisable( GL20.GL_DITHER );
+        Gdx.graphics.getGL20().glDisable( GL20.GL_DEPTH_TEST );
+        Gdx.graphics.getGL20().glEnable( GL20.GL_CULL_FACE );   // important! required for spritebatch
         Gdx.graphics.getGL20().glEnable( GL20.GL_TEXTURE_2D );
     }
 

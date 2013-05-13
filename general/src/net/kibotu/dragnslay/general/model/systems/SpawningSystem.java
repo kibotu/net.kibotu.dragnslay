@@ -46,6 +46,7 @@ public class SpawningSystem extends EntitySystem {
                     newEntity.addComponent( new SpaceShipIdleComponent( 4, 2 ) );
                     EntityBuilder.world.addEntity( newEntity );
                     sC.currentSpawns++;
+                    sC.spawns.add( newEntity );
                 }
             }
         }

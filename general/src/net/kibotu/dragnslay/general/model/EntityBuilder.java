@@ -43,7 +43,7 @@ final public class EntityBuilder {
                 Assets.manager.get( Constants.TEXTURE_EARTH, Texture.class ),
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ) ) );
         entity.addComponent( new SelectableComponent() );
-        entity.addComponent( new SpawningComponent( 1, 15, ( int ) (15/(360f/15f)*1000f) ) );
+        entity.addComponent( new SpawningComponent( 1, 15, ( int ) (15f/(360f/15f)*1500f) ) );
         return entity;
     }
 
