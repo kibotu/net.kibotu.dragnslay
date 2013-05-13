@@ -75,13 +75,21 @@ public class GameScreen implements Screen {
     }
 
     private void createEntities () {
-        Entity p1 = EntityBuilder.createPlanet();
-        p1.getComponent( TransformationComponent.class ).position.set( - 5, 5, 0 );
-        world.addEntity( p1 );
+        Entity p = EntityBuilder.createPlanet();
+        p.getComponent( TransformationComponent.class ).position.set( 5, 5, 0 );
+        world.addEntity( p );
 
-        Entity p2 = EntityBuilder.createPlanet();
-        p2.getComponent( TransformationComponent.class ).position.set( 5, -5, 0 );
-        world.addEntity( p2 );
+        p = EntityBuilder.createPlanet();
+        p.getComponent( TransformationComponent.class ).position.set( - 5, 5, 0 );
+        world.addEntity( p );
+
+        p = EntityBuilder.createPlanet();
+        p.getComponent( TransformationComponent.class ).position.set( 5, - 5, 0 );
+        world.addEntity( p );
+
+        p = EntityBuilder.createPlanet();
+        p.getComponent( TransformationComponent.class ).position.set( - 5, - 5, 0 );
+        world.addEntity( p );
     }
 
     private void initGL () {

@@ -22,7 +22,6 @@ public class CameraInputSystem extends AGestureListenerSystem {
     private float velocityY;
     private boolean flinging;
     private PerspectiveCamera camera;
-    private float zoom;
     private float zoomSpeed;
     private float minFovy;
     private float maxFovy;
@@ -36,7 +35,6 @@ public class CameraInputSystem extends AGestureListenerSystem {
         this.camera = camera;
         velocityX = 0;
         velocityY = 0;
-        zoom = 1;
         zoomSpeed = 30;
         minFovy = 67;
         maxFovy = 100;

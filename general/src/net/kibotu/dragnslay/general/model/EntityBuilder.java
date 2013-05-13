@@ -43,7 +43,7 @@ final public class EntityBuilder {
                 Assets.manager.get( Constants.TEXTURE_EARTH, Texture.class ),
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ) ) );
         entity.addComponent( new SelectableComponent() );
-        entity.addComponent( new SpawningComponent( 1, 20, 200 ) );
+        entity.addComponent( new SpawningComponent( 1, 15, ( int ) (15/(360f/15f)*1000f) ) );
         return entity;
     }
 
@@ -74,10 +74,10 @@ final public class EntityBuilder {
     public static Entity createCamera ( final PerspectiveCamera camera ) {
         Entity entity = world.createEntity();
         Logger.v( TAG, "create camera " + entity.getUuid() );
-        camera.position.set( 0, 0, 7 );
+        camera.position.set( 0, 0, 15 );
         camera.direction.set( 0, 0, - 1 );
         camera.near = 0.1f;
-        camera.far = 1000f;
+        camera.far = 100f;
         entity.addComponent( new CameraComponent( camera,
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ),
                 Color.BLACK ) );

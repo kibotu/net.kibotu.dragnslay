@@ -15,7 +15,7 @@ final public class Constants {
      */
 
     public static final String APP_TAG = "DNS";
-    public static final Logger.Level LOGGING_LEVEL = Logger.Level.VERBOSE;
+    public static final Logger.Level LOGGING_LEVEL = Logger.Level.NO_LOGGING;
 
     /**
      * Screens
