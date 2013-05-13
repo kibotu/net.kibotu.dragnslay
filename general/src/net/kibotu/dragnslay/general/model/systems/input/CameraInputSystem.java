@@ -26,6 +26,8 @@ public class CameraInputSystem extends AGestureListenerSystem {
     private float zoomSpeed;
     private float minFovy;
     private float maxFovy;
+    private float maxZoomOut;
+    private float maxZoomIn;
     private float panSpeed;
 
     public CameraInputSystem ( @NotNull final PerspectiveCamera camera ) {
@@ -37,8 +39,10 @@ public class CameraInputSystem extends AGestureListenerSystem {
         zoom = 1;
         zoomSpeed = 30;
         minFovy = 67;
-        maxFovy = 120;
+        maxFovy = 100;
         panSpeed = 100;
+        maxZoomOut = 100;
+        maxZoomIn = 4;
         flinging = false;
     }
 
@@ -63,6 +67,16 @@ public class CameraInputSystem extends AGestureListenerSystem {
     @Override
     public boolean zoom ( float initialDistance, float distance ) {
         Logger.v( TAG, "zoom gesture  " + ( 1 - distance / initialDistance ) );
+        return zoomDepth( initialDistance, distance );
+    }
+
+    public boolean zoomDepth ( float initialDistance, float distance ) {
+        camera.translate( 0, 0, ( zoomSpeed * Gdx.graphics.getDeltaTime() ) * ( 1 - distance / initialDistance ) );
+        if ( camera.position.z < maxZoomIn ) {
+            camera.position.z = maxZoomIn;
+        } else if ( camera.position.z > maxZoomOut ) {
+            camera.position.z = maxZoomOut;
+        }
         return zoomFovy( initialDistance, distance );
     }
 
