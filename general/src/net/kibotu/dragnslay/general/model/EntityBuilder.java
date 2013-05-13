@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g3d.model.still.StillModel;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import net.kibotu.dragnslay.general.Constants;
 import net.kibotu.dragnslay.general.assets.Assets;
+import net.kibotu.dragnslay.general.graphics.primitives.Cube;
 import net.kibotu.dragnslay.general.graphics.primitives.Sphere;
 import net.kibotu.dragnslay.general.model.components.CameraComponent;
 import net.kibotu.dragnslay.general.model.components.DisplayComponent;
@@ -49,6 +50,16 @@ final public class EntityBuilder {
         entity.addComponent( new DisplayComponent(
                 Assets.manager.get( Constants.MODEL_RAZOR, StillModel.class ),
                 Assets.manager.get( Constants.TEXTURE_RAZOR, Texture.class ),
+                Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ) ) );
+        return entity;
+    }
+
+    public static Entity createPlaceholder () {
+        Entity entity = world.createEntity();
+        entity.addComponent( new TransformationComponent() );
+        Cube cube = new Cube();
+        entity.addComponent( new DisplayComponent( cube.model,
+                Assets.manager.get( Constants.TEXTURE_CRATE, Texture.class ),
                 Assets.manager.get( Constants.SHADER_PHONG, ShaderProgram.class ) ) );
         return entity;
     }
