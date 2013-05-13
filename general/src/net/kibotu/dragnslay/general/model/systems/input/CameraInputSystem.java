@@ -38,7 +38,7 @@ public class CameraInputSystem extends AGestureListenerSystem {
         zoomSpeed = 30;
         minFovy = 67;
         maxFovy = 120;
-        panSpeed = 100;
+        panSpeed = 120;
         flinging = false;
     }
 
