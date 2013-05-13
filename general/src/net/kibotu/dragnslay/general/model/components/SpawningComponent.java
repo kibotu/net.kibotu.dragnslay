@@ -11,6 +11,7 @@ public class SpawningComponent extends Component {
 
     public int spawns;
     public int maxSpawnAmount;
+    public int currentSpawns;
     public int interval;
     public long startTime;
     public long delta;

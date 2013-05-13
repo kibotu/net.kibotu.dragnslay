@@ -32,6 +32,7 @@ public class SpawningSystem extends EntitySystem {
         for ( int i = 0; i < entities.size(); ++ i ) {
             e = entities.get( i );
             sC = spawnCmp.get( e );
+            if ( sC.maxSpawnAmount >= sC.currentSpawns ) return;  // TODO rethink current spawn amount source
             sC.delta += System.currentTimeMillis() - sC.startTime;
             sC.startTime = System.currentTimeMillis();
             long amount = sC.delta / sC.interval;
@@ -42,6 +43,7 @@ public class SpawningSystem extends EntitySystem {
                     TransformationComponent tC = newEntity.getComponent( TransformationComponent.class );
                     tC.position.set( 2, 0, 0 );
                     EntityBuilder.world.addEntity( newEntity );
+                    sC.currentSpawns++;
                 }
             }
         }
